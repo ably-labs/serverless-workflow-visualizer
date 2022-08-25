@@ -1,4 +1,6 @@
-# Ably Labs Template Repo
+# Serverless workflow visualizer
+
+This repo contains a web application that visualizes the progress of a business process that has been implemented with serverless functions.
 
 ---
 
@@ -7,8 +9,7 @@
 1. Update the description of this repo.
 2. Add [topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics) to this repo to clarify the language, tech stack and use case.
 3. Update the [.gitignore](.gitignore) file with one of the [standard templates from GitHub](https://github.com/github/gitignore).
-4. Update [dependabot.yml](.github/dependabot.yml) with the [configuration for your project](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates).
-5. Replace `https://github.com/ably-labs/ably-labs-template-repo/issues` with the actual link of the repo in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
 6. Update this README so it provides enough information for people to understand how it works, how to run it locally and how it can be deployed to the cloud (see [GitHub](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)).
 7. Update the query string in the static asset link:
   - For the logo at the bottom of this README and
@@ -63,12 +64,10 @@ Want to help contributing to this project? Have a look at our [contributing guid
 
 ## More info
 
-// Add links to related blog, video, personal twitter handle.
-
 - [Join our Discord server](https://discord.gg/q89gDHZcBK)
 - [Follow us on Twitter](https://twitter.com/ablyrealtime)
 - [Use our SDKs](https://github.com/ably/)
 - [Visit our website](https://ably.com)
 
 ---
-[![Ably logo](https://static.ably.dev/badge-black.svg?ably-labs-template-repo)](https://ably.com)
+[![Ably logo](https://static.ably.dev/badge-black.svg?serverless-workflow-visualizer)](https://ably.com)

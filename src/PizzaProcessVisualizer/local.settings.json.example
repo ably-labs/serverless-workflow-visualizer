@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "ABLY_API_KEY": "YOUR_ABLY_API_KEY",
+    "ABLY_CHANNEL_NAME": "pizza-process"
+  }
+}

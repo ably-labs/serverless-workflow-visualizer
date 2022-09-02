@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using IO.Ably;
 using Ably.PizzaProcess.Models;
-using System.Threading.Tasks;
 
 namespace Ably.PizzaProcess.Activities
 {

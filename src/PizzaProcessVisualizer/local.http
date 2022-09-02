@@ -2,19 +2,17 @@ POST http://localhost:7071/api/StartWorkflow
 Content-Type: application/json
 
 {
-    "Id" = "",
-    "RestaurantId" : "12",
-    "CustomerName" : "Marc",
-    "CustomerAddress" : "Amsterdam",
-    "MenuItems" : [
+    "restaurantId" : "12",
+    "customerName" : "Ada",
+    "customerAddress" : "Amsterdam",
+    "menuItems" : [
         {
-            "Type" : "Pizza"
-            "Name" : "Pepperoni pizza"
+            "type" : "Pizza",
+            "name" : "Pepperoni pizza"
         },
         {
-            "Type" : "Drink"
-            "Name" : "Lemon soda"
+            "type" : "Drink",
+            "name" : "Lemon soda"
         }
     ]
-    }
 }

@@ -15,11 +15,18 @@ namespace Ably.PizzaProcess.Clients
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] Order order,
             [DurableClient] IDurableClient durableClient)
         {
-            var id = await durableClient.StartNewAsync(
-                nameof(PizzaProcessOrchestrator),
-                order);
+            if (order.MenuItems != null)
+            {
+                var id = await durableClient.StartNewAsync(
+                    nameof(PizzaProcessOrchestrator),
+                    order);
 
-            return new OkObjectResult($"Start processing order {id}.");
+                return new OkObjectResult($"Start processing order {id}.");
+            } 
+            else 
+            {
+                return new BadRequestObjectResult("Please provide menuItems in the request.");
+            }
         }
     }
 }

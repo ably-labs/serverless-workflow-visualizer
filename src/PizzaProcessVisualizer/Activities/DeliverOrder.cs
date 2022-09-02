@@ -26,7 +26,7 @@ namespace Ably.PizzaProcess.Activities
         {
             logger.LogInformation($"Handing over order {order.Id} to delivery.");
             var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_NAME"));
-            await channel.PublishAsync("delivery-order", order);
+            await channel.PublishAsync("deliver-order", order);
         }
     }
 }

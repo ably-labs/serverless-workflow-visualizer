@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
@@ -10,23 +8,23 @@ using Ably.PizzaProcess.Models;
 
 namespace Ably.PizzaProcess.Activities
 {
-    public class HandOverToDelivery
+    public class CollectMenuItems
     {
         private readonly IRestClient _ablyClient;
 
-        public HandOverToDelivery(IRestClient ablyClient)
+        public CollectMenuItems(IRestClient ablyClient)
         {
             _ablyClient = ablyClient;
         }
 
-        [FunctionName(nameof(HandOverToDelivery))]
+        [FunctionName(nameof(CollectMenuItems))]
         public async Task Run(
             [ActivityTrigger] Order order,
             ILogger logger)
         {
-            logger.LogInformation($"Handing over order {order.Id} to delivery.");
+            logger.LogInformation($"Collect menu items for order {order.Id}.");
             var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_NAME"));
-            await channel.PublishAsync("handover-delivery", order);
+            await channel.PublishAsync("collect-menuitems", order);
         }
     }
 }

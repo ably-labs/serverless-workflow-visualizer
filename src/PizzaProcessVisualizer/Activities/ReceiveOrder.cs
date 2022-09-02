@@ -4,34 +4,42 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using IO.Ably;
 using Ably.PizzaProcess.Models;
+using System.Threading.Tasks;
 
 namespace Ably.PizzaProcess.Activities
 {
-    public class PrepareInstructions
+    public class ReceiveOrder
     {
         private readonly IRestClient _ablyClient;
 
-        public PrepareInstructions(IRestClient ablyClient)
+        public ReceiveOrder(IRestClient ablyClient)
         {
             _ablyClient = ablyClient;
         }
 
-        [FunctionName(nameof(PrepareInstructions))]
-        public IEnumerable<Instructions> Run(
+        [FunctionName(nameof(ReceiveOrder))]
+        public async Task<List<Instructions>> Run(
             [ActivityTrigger] Order order)
         {
+            var instructions = new List<Instructions>();
             foreach (var menuItem in order.MenuItems)
             {
                 (int timeInMinutes, int temperatureInCelsius) bakingInstructions = GetBakingInstructions(menuItem);
-                yield return new Instructions
-                {
-                    BakingTimeMinutes = bakingInstructions.timeInMinutes,
-                    BakingTemperatureCelsius = bakingInstructions.temperatureInCelsius,
-                    MenuItem = menuItem,
-                    OrderId = order.Id,
-                    RestaurantId = order.RestaurantId
-                };
+                instructions.Add(
+                    new Instructions
+                    {
+                        BakingTimeMinutes = bakingInstructions.timeInMinutes,
+                        BakingTemperatureCelsius = bakingInstructions.temperatureInCelsius,
+                        MenuItem = menuItem,
+                        OrderId = order.Id,
+                        RestaurantId = order.RestaurantId
+                    });
             }
+
+            var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_NAME"));
+            await channel.PublishAsync("receive-order", order);
+
+            return instructions;
         }
 
         private (int timeInMinutes, int temperatureInCelsius) GetBakingInstructions(MenuItem menuItem)

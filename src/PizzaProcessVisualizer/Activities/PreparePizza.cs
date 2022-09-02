@@ -8,23 +8,23 @@ using Microsoft.Extensions.Logging;
 
 namespace Ably.PizzaProcess.Activities
 {
-    public class PutPizzaInOven
+    public class PreparePizza
     {
         private readonly IRestClient _ablyClient;
 
-        public PutPizzaInOven(IRestClient ablyClient)
+        public PreparePizza(IRestClient ablyClient)
         {
             _ablyClient = ablyClient;
         }
 
-        [FunctionName(nameof(PutPizzaInOven))]
+        [FunctionName(nameof(PreparePizza))]
         public async Task Run(
             [ActivityTrigger] Instructions instructions,
             ILogger logger)
         {
-            logger.LogInformation($"Putting {instructions.MenuItem.Name} in the oven.");
+            logger.LogInformation($"Preparing {instructions.MenuItem.Name}.");
             var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_NAME"));
-            await channel.PublishAsync("pizza-in-oven", instructions);
+            await channel.PublishAsync("prepare-pizza", instructions);
         }
     }
 }

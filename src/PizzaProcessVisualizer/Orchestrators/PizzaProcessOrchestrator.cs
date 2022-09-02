@@ -18,21 +18,19 @@ namespace Ably.PizzaProcess.Orchestrators
             ILogger logger)
         {
             var order = context.GetInput<Order>();
-            order.Id = context.InstanceId;
 
             var instructions = await context.CallActivityAsync<IEnumerable<Instructions>>(
                 nameof(ReceiveOrder),
                 order);
-            
-            var instructionToKitchenTasks = new List<Task>();
-            foreach (var instruction in instructions)
-            {
-                instructionToKitchenTasks.Add(context.CallActivityAsync(
+
+
+            await context.CallActivityAsync(
                     nameof(SendInstructionsToKitchen),
-                    instruction));
-            }
-            await Task.WhenAll(instructionToKitchenTasks);
-            
+                    instructions);
+
+            // Simulate the time it takes to start with the order
+            await context.CreateTimer(context.CurrentUtcDateTime.AddSeconds(new Random().Next(5, 10)), CancellationToken.None);
+
             var preparationTasks = new List<Task>();
             foreach (var instruction in instructions)
             {
@@ -46,15 +44,15 @@ namespace Ably.PizzaProcess.Orchestrators
 
             await Task.WhenAll(preparationTasks);
 
-            // Simulate the time it takes to prepare the order
-            await context.CreateTimer(context.CurrentUtcDateTime.AddMinutes(new Random().Next(1, 2)), CancellationToken.None);
+            // Simulate the time it takes to collect the items for the order.
+            await context.CreateTimer(context.CurrentUtcDateTime.AddSeconds(new Random().Next(5, 10)), CancellationToken.None);
 
             await context.CallActivityAsync(
-                nameof(CollectMenuItems), 
+                nameof(CollectMenuItems),
                 order);
 
             await context.CallActivityAsync(
-                nameof(DeliverOrder), 
+                nameof(DeliverOrder),
                 order);
         }
     }

@@ -2,7 +2,8 @@ POST http://localhost:7071/api/StartWorkflow
 Content-Type: application/json
 
 {
-    "restaurantId" : "12",
+    "id" : "{{$guid}}",
+    "restaurantId" : "{{$guid}}",
     "customerName" : "Ada",
     "customerAddress" : "Amsterdam",
     "menuItems" : [
@@ -11,8 +12,16 @@ Content-Type: application/json
             "name" : "Pepperoni pizza"
         },
         {
+            "type" : "Pizza",
+            "name" : "Margherita pizza "
+        },
+        {
             "type" : "Drink",
-            "name" : "Lemon soda"
+            "name" : "Ice tea"
+        },
+        {
+            "type" : "Drink",
+            "name" : "Sparkling water"
         }
     ]
 }

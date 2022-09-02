@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ably.PizzaProcess.Models;
 using IO.Ably;
@@ -19,12 +20,12 @@ namespace Ably.PizzaProcess.Activities
 
         [FunctionName(nameof(SendInstructionsToKitchen))]
         public async Task Run(
-            [ActivityTrigger] Instructions instruction,
+            [ActivityTrigger] IEnumerable<Instructions> instructions,
             ILogger logger)
         {
-            logger.LogInformation($"Sending instructions to kitchen for {instruction.MenuItem.Name}.");
+            logger.LogInformation($"Sending instructions to kitchen.");
             var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_NAME"));
-            await channel.PublishAsync("send-instructions-to-kitchen", instruction);
+            await channel.PublishAsync("send-instructions-to-kitchen", instructions);
         }
     }
 }

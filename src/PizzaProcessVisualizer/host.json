@@ -7,5 +7,13 @@
                 "excludedTypes": "Request"
             }
         }
+    },
+    "extensions": {
+        "durableTask": {
+            "hubName": "PizzaProcessVisualizer",
+            "storageProvider": {
+                "maxQueuePollingInterval": "00:00:05"
+            }
+        }
     }
 }

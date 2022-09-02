@@ -12,7 +12,7 @@ namespace Ably.PizzaProcess
         public override void Configure(IFunctionsHostBuilder builder)
         {
             builder.Services.AddSingleton<IRestClient>(
-                new AblyRest(Environment.GetEnvironmentVariable("ABLY_APIKEY")));
+                new AblyRest(Environment.GetEnvironmentVariable("ABLY_API_KEY")));
         }
     }
 }

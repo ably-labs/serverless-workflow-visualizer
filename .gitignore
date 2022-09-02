@@ -1,3 +1,7 @@
 // Visit https://github.com/github/gitignore to get a gitignore for your project.
 
 .env
+
+__azurite*
+__blobstorage*
+__queuestorage*

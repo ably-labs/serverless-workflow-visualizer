@@ -2,6 +2,8 @@
   "recommendations": [
     "ms-azuretools.vscode-azurefunctions",
     "ms-dotnettools.csharp",
-    "azurite.azurite"
+    "azurite.azurite",
+    "Vue.volar",
+    "Vue.vscode-typescript-vue-plugin"
   ]
 }

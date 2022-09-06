@@ -17,6 +17,7 @@ a {
 @media (hover: hover) {
   a:hover {
     background-color: var(--color-hover);
+    transition: 0.2s;
   }
 }
 

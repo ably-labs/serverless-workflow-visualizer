@@ -4,7 +4,10 @@ import FlagIcon from "./icons/FlagIcon.vue";
 
 <template>
   <div class="dessertmenu">
-    <h2><FlagIcon /> Dessert menu <FlagIcon /></h2>
+    <h2><FlagIcon />
+      <span class="title word-1"> Dessert </span>
+      <span class="title word-2"> menu </span><FlagIcon />
+    </h2>
     <ul>
       <li>
         <a href="https://github.com/ably-labs/serverless-workflow-visualizer">GitHub Repo</a>

@@ -62,7 +62,6 @@
   box-sizing: border-box;
   margin: 0;
   position: relative;
-  font-weight: normal;
 }
 
 body {
@@ -73,7 +72,50 @@ body {
   line-height: 1.6;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   font-size: 15px;
-  text-rendering: o;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.title {
+  animation: color-animation 8s linear infinite;
+  /* transition: all 0.4s ease-in-out; */
+}
+
+.word-1 {
+  --color-1: var(--color-heading);
+  --color-2: var(--color-accent);
+  --color-3: var(--vt-c-black-soft);
+}
+
+.word-2 {
+  --color-1: var(--color-accent);
+  --color-2: var(--vt-c-black-soft);
+  --color-3: var(--color-heading);
+}
+
+.word-3 {
+  --color-1: var(--vt-c-black-soft);
+  --color-2: var(--color-heading);
+  --color-3: var(--color-accent);
+}
+
+.word-4 {
+  --color-1: var(--color-heading);
+  --color-2: var(--color-accent);
+  --color-3: var(--vt-c-black-soft);
+}
+
+@keyframes color-animation {
+  0%    {color: var(--color-1)}
+  10%    {color: var(--color-1)}
+  20%    {color: var(--color-1)}
+  30%   {color: var(--color-2)}
+  40%   {color: var(--color-2)}
+  50%   {color: var(--color-2)}
+  60%   {color: var(--color-3)}
+  70%   {color: var(--color-3)}
+  80%   {color: var(--color-3)}
+  90%   {color: var(--color-3)}
+  100%   {color: var(--color-1)}
 }

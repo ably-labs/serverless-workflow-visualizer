@@ -1,6 +1,12 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>Learn more about this demo</h1>
+    <ul>
+      <li>GitHub repo</li>
+      <li>Blog post</li>
+      <li>Video</li>
+      <li>Ably Website</li>
+    </ul>
   </div>
 </template>
 
@@ -9,6 +15,8 @@
   .about {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
 }

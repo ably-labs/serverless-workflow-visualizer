@@ -27,7 +27,9 @@ import FlagIcon from "./icons/FlagIcon.vue";
         (hungry for more? 🍴🌍)
       </li>
     </ul>
-    <p>Allergies should be </p>
+    <p>
+      Contact <a href="https://twitter.com/marcduiker">the chef</a> 🧑‍🍳 for additional recipes.
+    </p>
   </div>
 </template>
 
@@ -43,6 +45,12 @@ import FlagIcon from "./icons/FlagIcon.vue";
   margin-bottom: 0.5rem;
   color: var(--color-heading);
   border-bottom: 0.2rem solid var(--color-accent);
+}
+
+.dessertmenu p {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 0.2rem solid var(--color-accent);
 }
 
 ul {

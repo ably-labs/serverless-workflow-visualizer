@@ -10,9 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Ably.PizzaProcess.Orchestrators
 {
-    public class PizzaProcessOrchestrator
+    public class PizzaWorkflowOrchestrator
     {
-        [FunctionName(nameof(PizzaProcessOrchestrator))]
+        [FunctionName(nameof(PizzaWorkflowOrchestrator))]
         public async Task Run(
             [OrchestrationTrigger] IDurableOrchestrationContext context,
             ILogger logger)

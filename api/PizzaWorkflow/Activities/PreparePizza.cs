@@ -23,7 +23,7 @@ namespace Ably.PizzaProcess.Activities
             ILogger logger)
         {
             logger.LogInformation($"Preparing {instructions.MenuItem.Name}.");
-            var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_NAME"));
+            var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_PREFIX"));
             await channel.PublishAsync("prepare-pizza", instructions);
         }
     }

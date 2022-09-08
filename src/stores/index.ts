@@ -16,7 +16,8 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     isConnected: false,
     channelPrefix: "pizza-process",
     clientId: "",
-    orderID: "123",
+    orderId: "123",
+    isWorkflowComplete: false,
     orderReceivedState: {
       title: "Order Received",
       orderID: "123",
@@ -49,18 +50,22 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     },
   }),
   actions: {
-    async createRealtimeConnection(clientId: string, orderID: string) {
+    async placeOrder(clientId: string, orderId: string) {
+      this.$reset();
+      this.clientId = clientId;
+      this.orderId = orderId;
+    },
+    async createRealtimeConnection() {
       if (!this.isConnected) {
-        const realtimeClient = new Realtime.Promise({
-          authUrl: `/api/CreateTokenRequest/${clientId}`,
+        this.realtimeClient = new Realtime.Promise({
+          authUrl: `/api/CreateTokenRequest/${this.clientId}`,
           echoMessages: false,
         });
-        this.realtimeClient = realtimeClient;
-        realtimeClient.connection.on(
+        this.realtimeClient.connection.on(
           "connected",
           async (message: Types.ConnectionStateChange) => {
             this.isConnected = true;
-            await this.attachToChannel(orderID);
+            await this.attachToChannel(this.orderId);
           }
         );
 
@@ -70,14 +75,18 @@ export const pizzaProcessStore = defineStore("pizza-process", {
         this.realtimeClient.connection.on("closed", () => {
           this.isConnected = false;
         });
+      } else {
+        await this.attachToChannel(this.orderId);
       }
     },
+
     disconnect() {
       this.realtimeClient?.connection.close();
     },
-    async attachToChannel(channelName: string) {
-      const channelInstance = this.realtimeClient?.channels.get(channelName);
-      this.channelInstance = channelInstance;
+
+    async attachToChannel(orderID: string) {
+      const channelName = `pizza-workfkow:${orderID}`;
+      this.channelInstance = this.realtimeClient?.channels.get(channelName);
       this.subscribeToMessages();
     },
 
@@ -113,20 +122,55 @@ export const pizzaProcessStore = defineStore("pizza-process", {
         }
       );
     },
+
     handleOrderReceived(message: Types.Message) {
-      // TODO
+      this.$patch({
+        orderReceivedState: {
+          orderID: message.data.orderId,
+          isDisabled: false,
+        },
+      });
     },
+
     handleSendInstructions(message: Types.Message) {
-      // TODO
+      this.$patch({
+        kitchenInstructionsState: {
+          orderID: message.data.orderId,
+          isDisabled: false,
+        },
+      });
     },
+
     handlePreparePizza(message: Types.Message) {
-      // TODO
+      this.$patch({
+        preparationState: {
+          orderID: message.data.orderId,
+          isDisabled: false,
+        },
+      });
     },
+
     handleCollectOrder(message: Types.Message) {
-      // TODO
+      this.$patch({
+        preparationState: {
+          orderID: message.data.orderId,
+          isDisabled: false,
+        },
+      });
     },
+
     handleDeliverOrder(message: Types.Message) {
-      // TODO
+      this.$patch({
+        deliveryState: {
+          orderID: message.data.orderId,
+          isDisabled: false,
+        },
+      });
+    },
+    reset() {
+      const clientId = this.clientId;
+      this.$reset();
+      this.clientId = clientId;
     },
   },
 });

@@ -1,5 +1,22 @@
 <script setup lang="ts">
 import FlagIcon from "./icons/FlagIcon.vue";
+import { pizzaProcessStore } from "../stores";
+import { v4 as uuidv4 } from "uuid";
+const store = pizzaProcessStore();
+
+async function placeOrder() {
+  const clientId = store.clientId === "" ? uuidv4() : store.clientId;
+  const orderId = getRandomID();
+  store.placeOrder(clientId, orderId);
+}
+
+function getRandomID() {
+  const min = Math.ceil(1000);
+  const max = Math.floor(9999);
+  return Math.floor(Math.random() * (max - min) + min).toString();
+}
+
+
 </script>
 
 <template>
@@ -16,7 +33,7 @@ import FlagIcon from "./icons/FlagIcon.vue";
       <h3>
         Place an order and see the progress of the serverless pizza workflow.
       </h3>
-      <button>Place order</button>
+      <button @click="placeOrder">Place order</button>
     </div>
     <details>
         <summary>More info about the workflow...</summary>

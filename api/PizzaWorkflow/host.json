@@ -10,7 +10,7 @@
     },
     "extensions": {
         "durableTask": {
-            "hubName": "PizzaProcessVisualizer",
+            "hubName": "PizzaWorkflow",
             "storageProvider": {
                 "maxQueuePollingInterval": "00:00:05"
             }

@@ -3,7 +3,8 @@ import type { WorkflowState } from "./WorkflowState";
 
 export type PizzaWorkflow = RealtimeState & {
   clientId: string;
-  orderID: string;
+  orderId: string;
+  isWorkflowComplete: boolean;
   orderReceivedState: WorkflowState;
   kitchenInstructionsState: WorkflowState;
   preparationState: WorkflowState;

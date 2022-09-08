@@ -3,7 +3,11 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "ABLY_API_KEY": "YOUR_ABLY_API_KEY",
-    "ABLY_CHANNEL_NAME": "pizza-process"
+    "ABLY_API_KEY": "YOUR_ABLY_API_KEY"
+  },
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*",
+    "CORSCredentials": false
   }
 }

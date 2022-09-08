@@ -3,7 +3,7 @@
   "configurations": {
     "serverless-workflow-visualizer": {
       "appLocation": ".",
-      "apiLocation": "api\\PizzaProcessVisualizer",
+      "apiLocation": "api/Auth",
       "outputLocation": "dist",
       "appBuildCommand": "npm run build",
       "apiBuildCommand": "dotnet publish -c Release",

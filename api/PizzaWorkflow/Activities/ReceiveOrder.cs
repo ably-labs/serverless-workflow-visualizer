@@ -36,7 +36,7 @@ namespace Ably.PizzaProcess.Activities
                     });
             }
 
-            var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_NAME"));
+            var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_PREFIX"));
             await channel.PublishAsync("receive-order", order);
 
             return instructions;

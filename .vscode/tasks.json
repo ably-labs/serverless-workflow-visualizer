@@ -2,7 +2,7 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "clean (functions)",
+			"label": "clean (Auth functions)",
 			"command": "dotnet",
 			"args": [
 				"clean",
@@ -12,11 +12,11 @@
 			"type": "process",
 			"problemMatcher": "$msCompile",
 			"options": {
-				"cwd": "${workspaceFolder}/src\\PizzaProcessVisualizer"
+				"cwd": "${workspaceFolder}/api/Auth"
 			}
 		},
 		{
-			"label": "build (functions)",
+			"label": "build (Auth functions)",
 			"command": "dotnet",
 			"args": [
 				"build",
@@ -24,18 +24,18 @@
 				"/consoleloggerparameters:NoSummary"
 			],
 			"type": "process",
-			"dependsOn": "clean (functions)",
+			"dependsOn": "clean (Auth functions)",
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			},
 			"problemMatcher": "$msCompile",
 			"options": {
-				"cwd": "${workspaceFolder}/src\\PizzaProcessVisualizer"
+				"cwd": "${workspaceFolder}/api/Auth"
 			}
 		},
 		{
-			"label": "clean release (functions)",
+			"label": "clean release (Auth functions)",
 			"command": "dotnet",
 			"args": [
 				"clean",
@@ -47,11 +47,11 @@
 			"type": "process",
 			"problemMatcher": "$msCompile",
 			"options": {
-				"cwd": "${workspaceFolder}/src\\PizzaProcessVisualizer"
+				"cwd": "${workspaceFolder}/api/Auth"
 			}
 		},
 		{
-			"label": "publish (functions)",
+			"label": "publish (Auth functions)",
 			"command": "dotnet",
 			"args": [
 				"publish",
@@ -61,21 +61,99 @@
 				"/consoleloggerparameters:NoSummary"
 			],
 			"type": "process",
-			"dependsOn": "clean release (functions)",
+			"dependsOn": "clean release (Auth functions)",
 			"problemMatcher": "$msCompile",
 			"options": {
-				"cwd": "${workspaceFolder}/src\\PizzaProcessVisualizer"
+				"cwd": "${workspaceFolder}/api/Auth"
 			}
 		},
 		{
+			"label": "run (Auth functions)",
 			"type": "func",
-			"dependsOn": "build (functions)",
+			"dependsOn": "build (Auth functions)",
 			"options": {
-				"cwd": "${workspaceFolder}/src\\PizzaProcessVisualizer/bin/Debug/net6.0"
+				"cwd": "${workspaceFolder}/api/Auth/bin/Debug/net6.0"
 			},
 			"command": "host start",
 			"isBackground": true,
 			"problemMatcher": "$func-dotnet-watch"
-		}
+		},
+		{
+			"label": "clean (Workflow functions)",
+			"command": "dotnet",
+			"args": [
+				"clean",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"type": "process",
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/api/PizzaWorkflow"
+			}
+		},
+		{
+			"label": "build (Workflow functions)",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"type": "process",
+			"dependsOn": "clean (Workflow functions)",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/api/PizzaWorkflow"
+			}
+		},
+		{
+			"label": "clean release (Workflow functions)",
+			"command": "dotnet",
+			"args": [
+				"clean",
+				"--configuration",
+				"Release",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"type": "process",
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/api/PizzaWorkflow"
+			}
+		},
+		{
+			"label": "publish (Workflow functions)",
+			"command": "dotnet",
+			"args": [
+				"publish",
+				"--configuration",
+				"Release",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"type": "process",
+			"dependsOn": "clean release (Workflow functions)",
+			"problemMatcher": "$msCompile",
+			"options": {
+				"cwd": "${workspaceFolder}/api/PizzaWorkflow"
+			}
+		},
+		{
+			"label": "run (Workflow functions)",
+			"type": "func",
+			"dependsOn": "build (Workflow functions)",
+			"options": {
+				"cwd": "${workspaceFolder}/api/PizzaWorkflow/bin/Debug/net6.0"
+			},
+			"command": "host start",
+			"isBackground": true,
+			"problemMatcher": "$func-dotnet-watch"
+		},
 	]
 }

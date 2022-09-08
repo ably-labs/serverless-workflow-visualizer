@@ -17,11 +17,12 @@ namespace PizzaWorkflow.Clients
         {
             if (order.MenuItems != null)
             {
-                var id = await durableClient.StartNewAsync(
+                var orchestrationId = await durableClient.StartNewAsync(
                     nameof(PizzaWorkflowOrchestrator),
+                    order.Id,
                     order);
 
-                return new OkObjectResult($"Start processing order {id}.");
+                return new OkObjectResult(orchestrationId);
             }
             else
             {

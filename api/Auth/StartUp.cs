@@ -1,11 +1,11 @@
 using System;
-using AblyLabs.ServerlessWebsocketsQuest;
 using IO.Ably;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Pizza;
 
 [assembly: FunctionsStartup(typeof(Startup))]
-namespace AblyLabs.ServerlessWebsocketsQuest
+namespace Pizza
 {
     public class Startup : FunctionsStartup
     {
@@ -14,6 +14,11 @@ namespace AblyLabs.ServerlessWebsocketsQuest
             var ablyApiKey = Environment.GetEnvironmentVariable("ABLY_API_KEY");
             var ablyClient = new AblyRest(ablyApiKey);
             builder.Services.AddSingleton<IRestClient>(ablyClient);
+            builder.Services.AddHttpClient("Workflow", httpClient =>
+            {
+                httpClient.BaseAddress = new Uri(Environment.GetEnvironmentVariable("WORKFLOW_FUNCTION_URL"));
+                httpClient.DefaultRequestHeaders.Add("x-functions-key", Environment.GetEnvironmentVariable("WORKFLOW_FUNCTION_KEY"));
+            });
         }
     }
 }

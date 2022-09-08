@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using IO.Ably;
 using System.Net.Http;
 
-namespace AblyLabs.ServerlessWebsocketsQuest
+namespace Pizza.Auth
 {
     public class CreateTokenRequest
     {

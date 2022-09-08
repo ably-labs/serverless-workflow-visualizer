@@ -15,8 +15,6 @@ function getRandomID() {
   const max = Math.floor(9999);
   return Math.floor(Math.random() * (max - min) + min).toString();
 }
-
-
 </script>
 
 <template>
@@ -36,13 +34,21 @@ function getRandomID() {
       <button @click="placeOrder">Place order</button>
     </div>
     <details>
-        <summary>More info about the workflow...</summary>
-        <p>
-        The serverless workflow is implemented using <a href="https://docs.microsoft.com/azure/azure-functions/durable/durable-functions-overview">Azure Durable Functions</a>.
-        The <code>PizzaWorkflowOrchestrator</code> function calls 5 activity functions in sequence. 
-        Each of these functions publishes a message via <a href="https://ably.com/docs/quick-start-guide">Ably</a> which is received by this website so you can see how far the workflow has progressed in real-time.
+      <summary>More info about the workflow...</summary>
+      <p>
+        The serverless workflow is implemented using
+        <a
+          href="https://docs.microsoft.com/azure/azure-functions/durable/durable-functions-overview"
+        >
+          Azure Durable Functions
+        </a>
+        . The <code>PizzaWorkflowOrchestrator</code> function calls 5 activity
+        functions in sequence. Each of these functions publishes a message via
+        <a href="https://ably.com/docs/quick-start-guide">Ably</a> which is
+        received by this website so you can see how far the workflow has
+        progressed in real-time.
       </p>
-      </details>
+    </details>
   </div>
 </template>
 
@@ -104,6 +110,6 @@ details {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-}
+  }
 }
 </style>

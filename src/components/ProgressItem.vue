@@ -1,13 +1,25 @@
+<script setup lang="ts">
+import GreenDot from "../assets/GreenDot.png";
+const props = defineProps({
+  title: String,
+  image: String,
+  orderID: String,
+  isDisabled: Boolean,
+});
+</script>
+
 <template>
   <div class="item">
-    <i>
-      <slot name="icon"></slot>
-    </i>
+    <div class="green-dot">
+      <img
+        v-bind:class="{ disabled: props.isDisabled }"
+        :src="GreenDot"
+        height="30"
+      />
+    </div>
     <div class="details">
-      <slot></slot>
-      <p>
-        <slot name="heading"></slot>
-      </p>
+      <img v-bind:class="{ disabled: props.isDisabled }" :src="props.image" />
+      <p>{{ props.title }}</p>
     </div>
   </div>
 </template>
@@ -23,7 +35,11 @@
   margin-left: 1rem;
 }
 
-i {
+.disabled {
+    filter: grayscale(100%);
+}
+
+.green-dot {
   display: flex;
   place-items: center;
   place-content: center;
@@ -46,7 +62,7 @@ h3 {
     padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
   }
 
-  i {
+  .green-dot {
     top: calc(50% - 25px);
     left: -26px;
     position: absolute;

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Ably.PizzaProcess.Models
+namespace PizzaWorkflow.Models
 {
     public class Order
     {
@@ -10,9 +10,6 @@ namespace Ably.PizzaProcess.Models
 
         [JsonProperty("id")]
         public string Id { get; set; }
-        [JsonProperty("restaurantId")]
-        public string RestaurantId { get; set; }
-        [JsonProperty("customerName")]
         public string CustomerName { get; set; }
         [JsonProperty("customerAddress")]
         public string CustomerAddress { get; set; }

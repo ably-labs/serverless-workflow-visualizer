@@ -1,20 +1,16 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using IO.Ably;
-using Ably.PizzaProcess.Models;
+using PizzaWorkflow.Models;
 
-namespace Ably.PizzaProcess.Activities
+namespace PizzaWorkflow.Activities
 {
-    public class CollectMenuItems
+    public class CollectMenuItems : MessagingBase
     {
-        private readonly IRestClient _ablyClient;
-
-        public CollectMenuItems(IRestClient ablyClient)
+        public CollectMenuItems(IRestClient ablyClient) : base(ablyClient)
         {
-            _ablyClient = ablyClient;
         }
 
         [FunctionName(nameof(CollectMenuItems))]
@@ -23,8 +19,7 @@ namespace Ably.PizzaProcess.Activities
             ILogger logger)
         {
             logger.LogInformation($"Collect menu items for order {order.Id}.");
-            var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_PREFIX"));
-            await channel.PublishAsync("collect-menuitems", order);
+            await base.PublishAsync(order.Id, "collect-menuitems", order);
         }
     }
 }

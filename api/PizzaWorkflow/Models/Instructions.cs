@@ -1,9 +1,8 @@
-namespace Ably.PizzaProcess.Models
+namespace PizzaWorkflow.Models
 {
     public class Instructions
     {
-        public string  OrderId { get; set; }
-        public string RestaurantId { get; set; }
+        public string OrderId { get; set; }
         public MenuItem MenuItem { get; set; }
         public int BakingTimeMinutes { get; set; }
         public int BakingTemperatureCelsius { get; set; }

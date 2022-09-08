@@ -18,7 +18,7 @@ namespace Ably.PizzaProcess.Clients
             if (order.MenuItems != null)
             {
                 var id = await durableClient.StartNewAsync(
-                    nameof(PizzaProcessOrchestrator),
+                    nameof(PizzaWorkflowOrchestrator),
                     order);
 
                 return new OkObjectResult($"Start processing order {id}.");

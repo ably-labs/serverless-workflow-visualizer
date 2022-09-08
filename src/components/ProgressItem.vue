@@ -1,13 +1,30 @@
+<script setup lang="ts">
+import type { WorkflowState } from "@/types/WorkflowState";
+import GreenDot from "../assets/GreenDot.png";
+const props = defineProps({
+  workflowState: Object,
+});
+const state: WorkflowState = props.workflowState as WorkflowState;
+</script>
+
 <template>
   <div class="item">
-    <i>
-      <slot name="icon"></slot>
-    </i>
+    <div class="green-dot">
+      <img
+        v-bind:class="{ disabled: state.isDisabled }"
+        :src="GreenDot"
+        height="30"
+      />
+    </div>
     <div class="details">
-      <h3>
-        <slot name="heading"></slot>
-      </h3>
-      <slot></slot>
+      <img v-bind:class="{ disabled: state.isDisabled }" :src="state.image" />
+      <p v-bind:class="{ disabled: state.isDisabled }">
+        {{
+          state.isDisabled
+            ? "Waiting for your order..."
+            : `${state.title} (${state.orderID})`
+        }}
+      </p>
     </div>
   </div>
 </template>
@@ -23,7 +40,12 @@
   margin-left: 1rem;
 }
 
-i {
+.disabled {
+  filter: grayscale(100%);
+  color: grey;
+}
+
+.green-dot {
   display: flex;
   place-items: center;
   place-content: center;
@@ -46,7 +68,7 @@ h3 {
     padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
   }
 
-  i {
+  .green-dot {
     top: calc(50% - 25px);
     left: -26px;
     position: absolute;

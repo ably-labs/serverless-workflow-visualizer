@@ -19,7 +19,13 @@ const props = defineProps({
     </div>
     <div class="details">
       <img v-bind:class="{ disabled: props.isDisabled }" :src="props.image" />
-      <p>{{ props.title }}</p>
+      <p v-bind:class="{ disabled: props.isDisabled }">
+        {{
+          props.isDisabled
+            ? "Waiting for your order..."
+            : `${props.title} (${props.orderID})`
+        }}
+      </p>
     </div>
   </div>
 </template>
@@ -36,7 +42,8 @@ const props = defineProps({
 }
 
 .disabled {
-    filter: grayscale(100%);
+  filter: grayscale(100%);
+  color: grey;
 }
 
 .green-dot {

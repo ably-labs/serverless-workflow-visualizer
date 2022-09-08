@@ -3,4 +3,5 @@ export type WorkflowState = {
   orderID: string;
   image: string;
   isDisabled: boolean;
-}
+  isCurrentState: boolean;
+};

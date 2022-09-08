@@ -1,29 +1,28 @@
 <script setup lang="ts">
+import type { WorkflowState } from "@/types/WorkflowState";
 import GreenDot from "../assets/GreenDot.png";
 const props = defineProps({
-  title: String,
-  image: String,
-  orderID: String,
-  isDisabled: Boolean,
+  workflowState: Object,
 });
+const state: WorkflowState = props.workflowState as WorkflowState;
 </script>
 
 <template>
   <div class="item">
     <div class="green-dot">
       <img
-        v-bind:class="{ disabled: props.isDisabled }"
+        v-bind:class="{ disabled: state.isDisabled }"
         :src="GreenDot"
         height="30"
       />
     </div>
     <div class="details">
-      <img v-bind:class="{ disabled: props.isDisabled }" :src="props.image" />
-      <p v-bind:class="{ disabled: props.isDisabled }">
+      <img v-bind:class="{ disabled: state.isDisabled }" :src="state.image" />
+      <p v-bind:class="{ disabled: state.isDisabled }">
         {{
-          props.isDisabled
+          state.isDisabled
             ? "Waiting for your order..."
-            : `${props.title} (${props.orderID})`
+            : `${state.title} (${state.orderID})`
         }}
       </p>
     </div>

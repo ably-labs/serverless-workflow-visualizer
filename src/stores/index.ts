@@ -65,8 +65,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
   actions: {
     async start(clientId: string, order: Order) {
       this.$reset();
-      this.clientId = clientId;
-      this.orderId = order.id;
+      this.$state.clientId = clientId;
+      this.$state.orderId = order.id;
+      this.$state.disableOrdering = true;
       await this.createRealtimeConnection(clientId, order);
     },
     async createRealtimeConnection(clientId: string, order: Order) {
@@ -82,16 +83,16 @@ export const pizzaProcessStore = defineStore("pizza-process", {
             this.attachToChannel(order.id);
             if (!this.isOrderPlaced) {
               await this.placeOrder(order);
-              this.isOrderPlaced = true;
+              this.$state.isOrderPlaced = true;
             }
           }
         );
 
         this.realtimeClient.connection.on("disconnected", () => {
-          this.isConnected = false;
+          this.$state.isConnected = false;
         });
         this.realtimeClient.connection.on("closed", () => {
-          this.isConnected = false;
+          this.$state.isConnected = false;
         });
       } else {
         this.attachToChannel(this.orderId);
@@ -112,19 +113,20 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       });
       if (response.ok) {
         const payload = await response.json();
-        this.orderId = payload.result;
+        this.$state.orderId = payload.result;
         console.log(`Order ID: ${this.orderId}`);
       } else {
-        this.disableOrdering = false;
+        this.$state.disableOrdering = false;
         console.log(response.statusText);
       }
     },
 
     attachToChannel(orderId: string) {
       const channelName = `pizza-workflow:${orderId}`;
-      this.channelInstance = this.realtimeClient?.channels.get(channelName, {
-        params: { rewind: "2m" },
-      });
+      this.$state.channelInstance = this.realtimeClient?.channels.get(
+        channelName,
+        { params: { rewind: "2m" } }
+      );
       this.subscribeToMessages();
     },
 
@@ -225,6 +227,7 @@ export const pizzaProcessStore = defineStore("pizza-process", {
         collectionState: {
           isCurrentState: false,
         },
+        isWorkflowComplete: true,
       });
       setTimeout(() => {
         this.disableOrdering = false;

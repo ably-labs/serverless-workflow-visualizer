@@ -2,6 +2,7 @@
 import ProgressItem from "./ProgressItem.vue";
 import { storeToRefs } from "pinia";
 import { pizzaProcessStore } from "../stores";
+import type { WorkflowState } from "@/types/WorkflowState";
 
 const store = pizzaProcessStore();
 const {
@@ -15,7 +16,7 @@ const {
 
 <template>
   <ProgressItem
-    :workflow-state="orderReceivedState"
+    :workflow-state="orderReceivedState as WorkflowState"
     :order-i-d="store.orderId"
   />
   <ProgressItem

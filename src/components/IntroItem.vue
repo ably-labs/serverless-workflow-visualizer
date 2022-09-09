@@ -3,10 +3,13 @@ import FlagIcon from "./icons/FlagIcon.vue";
 import { pizzaProcessStore } from "../stores";
 import { v4 as uuidv4 } from "uuid";
 import { MenuItemType, type Order } from "@/types/Order";
+import { storeToRefs } from "pinia";
+
 const store = pizzaProcessStore();
+const { disableOrdering } = storeToRefs(store);
 
 async function placeOrder() {
-  store.disableOrdering = true;
+  // store.disableOrdering = true;
   const clientId = store.clientId === "" ? uuidv4() : store.clientId;
   const today = new Date();
   const timeStamp = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
@@ -50,26 +53,28 @@ function getRandomID() {
       <h3>
         Place an order and see the progress of the serverless pizza workflow.
       </h3>
-      <button @click="placeOrder" :disabled="store.disableOrdering">
+      <button @click="placeOrder" :disabled="disableOrdering">
         Place order
       </button>
     </div>
-    <details>
-      <summary>More info about the workflow...</summary>
-      <p>
-        The serverless workflow is implemented using
-        <a
-          href="https://docs.microsoft.com/azure/azure-functions/durable/durable-functions-overview"
-        >
-          Azure Durable Functions
-        </a>
-        . The <code>PizzaWorkflowOrchestrator</code> function calls 5 activity
-        functions in sequence. Each of these functions publishes a message via
-        <a href="https://ably.com/docs/quick-start-guide">Ably</a> which is
-        received by this website so you can see how far the workflow has
-        progressed in real-time.
-      </p>
-    </details>
+    <div class="flex-center">
+      <details>
+        <summary>More info about the workflow...</summary>
+        <p>
+          The serverless workflow is implemented using
+          <a
+            href="https://docs.microsoft.com/azure/azure-functions/durable/durable-functions-overview"
+          >
+            Azure Durable Functions
+          </a>
+          . The <code>PizzaWorkflowOrchestrator</code> function calls 5 activity
+          functions in sequence. Each of these functions publishes a message via
+          <a href="https://ably.com/docs/quick-start-guide">Ably</a> which is
+          received by this website so you can see how far the workflow has
+          progressed in real-time.
+        </p>
+      </details>
+    </div>
   </div>
 </template>
 
@@ -99,7 +104,7 @@ button {
   transition: all 0.4s ease-out;
 }
 
-button:hover {
+button:hover:enabled {
   box-shadow: 0px 0px 10px var(--vt-c-green-dark);
   transition: all 0.1s ease-out;
 }
@@ -125,6 +130,13 @@ details {
   cursor: pointer;
 }
 
+.flex-center {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  text-align: left;
+}
+
 @media (min-width: 1024px) {
   .greetings h1,
   .greetings h3 {
@@ -136,6 +148,12 @@ details {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+  }
+
+  .flex-center {
+    display: flex;
+    justify-content: left;
+    text-align: left;
   }
 }
 </style>

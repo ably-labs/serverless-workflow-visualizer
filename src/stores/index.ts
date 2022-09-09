@@ -164,6 +164,7 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     handleOrderReceived(message: Types.Message) {
       this.$patch({
         orderReceivedState: {
+          timestamp: convertToTime(message.timestamp),
           orderId: message.data.id,
           isDisabled: false,
           isCurrentState: true,

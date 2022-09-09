@@ -25,7 +25,9 @@ const state: WorkflowState = props.workflowState as WorkflowState;
         {{
           state.isDisabled
             ? "Waiting for your order..."
-            : `${state.timestamp} - ${state.title} (${state.orderId}.split("-")[1]})`
+            : `${state.timestamp} - ${state.title} (${
+                state.orderId.split("-")[1]
+              })`
         }}
       </p>
     </div>

@@ -1,28 +1,28 @@
 <script setup lang="ts">
 import ProgressItem from "./ProgressItem.vue";
+import { storeToRefs } from "pinia";
 import { pizzaProcessStore } from "../stores";
+
 const store = pizzaProcessStore();
+const {
+  orderReceivedState,
+  kitchenInstructionsState,
+  preparationState,
+  collectionState,
+  deliveryState,
+} = storeToRefs(store);
 </script>
 
 <template>
   <ProgressItem
-    :workflow-state="store.orderReceivedState"
+    :workflow-state="orderReceivedState"
     :order-i-d="store.orderId"
   />
   <ProgressItem
-    :workflow-state="store.kitchenInstructionsState"
+    :workflow-state="kitchenInstructionsState"
     :order-i-d="store.orderId"
   />
-  <ProgressItem
-    :workflow-state="store.preparationState"
-    :order-i-d="store.orderId"
-  />
-  <ProgressItem
-    :workflow-state="store.collectionState"
-    :order-i-d="store.orderId"
-  />
-  <ProgressItem
-    :workflow-state="store.deliveryState"
-    :order-i-d="store.orderId"
-  />
+  <ProgressItem :workflow-state="preparationState" :order-i-d="store.orderId" />
+  <ProgressItem :workflow-state="collectionState" :order-i-d="store.orderId" />
+  <ProgressItem :workflow-state="deliveryState" :order-i-d="store.orderId" />
 </template>

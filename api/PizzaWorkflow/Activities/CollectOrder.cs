@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
@@ -8,19 +7,19 @@ using PizzaWorkflow.Models;
 
 namespace PizzaWorkflow.Activities
 {
-    public class DeliverOrder : MessagingBase
+    public class CollectOrder : MessagingBase
     {
-        public DeliverOrder(IRestClient ablyClient) : base(ablyClient)
+        public CollectOrder(IRestClient ablyClient) : base(ablyClient)
         {
         }
 
-        [FunctionName(nameof(DeliverOrder))]
+        [FunctionName(nameof(CollectOrder))]
         public async Task Run(
             [ActivityTrigger] Order order,
             ILogger logger)
         {
-            logger.LogInformation($"Handing over order {order.Id} to delivery.");
-            await base.PublishAsync(order.Id, "deliver-order", order);
+            logger.LogInformation($"Collect menu items for order {order.Id}.");
+            await base.PublishAsync(order.Id, "collect-order", order);
         }
     }
 }

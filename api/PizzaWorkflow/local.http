@@ -3,7 +3,6 @@ Content-Type: application/json
 
 {
     "id" : "{{$guid}}",
-    "restaurantId" : "{{$guid}}",
     "customerName" : "Ada",
     "customerAddress" : "Amsterdam",
     "menuItems" : [
@@ -12,16 +11,8 @@ Content-Type: application/json
             "name" : "Pepperoni pizza"
         },
         {
-            "type" : "Pizza",
-            "name" : "Margherita pizza "
-        },
-        {
             "type" : "Drink",
             "name" : "Ice tea"
-        },
-        {
-            "type" : "Drink",
-            "name" : "Sparkling water"
         }
     ]
 }

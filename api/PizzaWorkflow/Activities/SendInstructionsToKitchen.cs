@@ -1,21 +1,18 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ably.PizzaProcess.Models;
-using IO.Ably;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
+using IO.Ably;
+using PizzaWorkflow.Models;
+using System.Linq;
 
-namespace Ably.PizzaProcess.Activities
+namespace PizzaWorkflow.Activities
 {
-    public class SendInstructionsToKitchen
+    public class SendInstructionsToKitchen : MessagingBase
     {
-        private readonly IRestClient _ablyClient;
-
-        public SendInstructionsToKitchen(IRestClient ablyClient)
+        public SendInstructionsToKitchen(IRestClient ablyClient) : base(ablyClient)
         {
-            _ablyClient = ablyClient;
         }
 
         [FunctionName(nameof(SendInstructionsToKitchen))]
@@ -24,8 +21,7 @@ namespace Ably.PizzaProcess.Activities
             ILogger logger)
         {
             logger.LogInformation($"Sending instructions to kitchen.");
-            var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_PREFIX"));
-            await channel.PublishAsync("send-instructions-to-kitchen", instructions);
+            await base.PublishAsync(instructions.First().OrderId, "send-instructions-to-kitchen", instructions);
         }
     }
 }

@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Ably.PizzaProcess.Activities;
-using Ably.PizzaProcess.Models;
+using PizzaWorkflow.Activities;
+using PizzaWorkflow.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 
-namespace Ably.PizzaProcess.Orchestrators
+namespace PizzaWorkflow.Orchestrators
 {
     public class PizzaWorkflowOrchestrator
     {
@@ -48,7 +48,7 @@ namespace Ably.PizzaProcess.Orchestrators
             await context.CreateTimer(context.CurrentUtcDateTime.AddSeconds(new Random().Next(5, 10)), CancellationToken.None);
 
             await context.CallActivityAsync(
-                nameof(CollectMenuItems),
+                nameof(CollectOrder),
                 order);
 
             await context.CallActivityAsync(

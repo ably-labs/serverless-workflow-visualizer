@@ -1,11 +1,11 @@
 using System;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using Ably.PizzaProcess;
+using PizzaWorkflow;
 using IO.Ably;
 
 [assembly: FunctionsStartup(typeof(StartUp))]
-namespace Ably.PizzaProcess
+namespace PizzaWorkflow
 {
     public class StartUp : FunctionsStartup
     {

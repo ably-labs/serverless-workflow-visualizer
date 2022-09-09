@@ -111,8 +111,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
         body: JSON.stringify(order),
       });
       if (response.ok) {
-        this.orderId = await response.text();
-        console.log(this.orderId);
+        const payload = await response.json();
+        this.orderId = payload.result;
+        console.log(`Order ID: ${this.orderId}`);
       } else {
         this.disableOrdering = false;
         console.log(response.statusText);
@@ -165,6 +166,7 @@ export const pizzaProcessStore = defineStore("pizza-process", {
         orderReceivedState: {
           orderId: message.data.id,
           isDisabled: false,
+          isCurrentState: true,
         },
       });
     },
@@ -175,6 +177,10 @@ export const pizzaProcessStore = defineStore("pizza-process", {
           timestamp: convertToTime(message.timestamp),
           orderId: message.data[0].orderId,
           isDisabled: false,
+          isCurrentState: true,
+        },
+        orderReceivedState: {
+          isCurrentState: false,
         },
       });
     },
@@ -185,16 +191,24 @@ export const pizzaProcessStore = defineStore("pizza-process", {
           timestamp: convertToTime(message.timestamp),
           orderId: message.data.orderId,
           isDisabled: false,
+          isCurrentState: true,
+        },
+        kitchenInstructionsState: {
+          isCurrentState: false,
         },
       });
     },
 
     handleCollectOrder(message: Types.Message) {
       this.$patch({
-        preparationState: {
+        collectionState: {
           timestamp: convertToTime(message.timestamp),
           orderId: message.data.id,
           isDisabled: false,
+          isCurrentState: true,
+        },
+        preparationState: {
+          isCurrentState: false,
         },
       });
     },
@@ -205,6 +219,10 @@ export const pizzaProcessStore = defineStore("pizza-process", {
           timestamp: convertToTime(message.timestamp),
           orderId: message.data.id,
           isDisabled: false,
+          isCurrentState: true,
+        },
+        collectionState: {
+          isCurrentState: false,
         },
       });
       setTimeout(() => {

@@ -4,10 +4,6 @@ namespace PizzaWorkflow.Models
 {
     public class Order
     {
-        public Order()
-        {
-        }
-
         [JsonProperty("id")]
         public string Id { get; set; }
         public string CustomerName { get; set; }

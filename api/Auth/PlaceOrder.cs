@@ -21,8 +21,8 @@ namespace Pizza.Order
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage req,
             ILogger log)
         {
-            var reponse = await _httpClient.PostAsync($"api/StartWorkflow", req.Content);
-            var orchestrationId = reponse.Content.ReadAsStringAsync();
+            var response = await _httpClient.PostAsync($"/api/StartWorkflow", req.Content);
+            var orchestrationId = response.Content.ReadAsStringAsync();
             return new OkObjectResult(orchestrationId);
         }
     }

@@ -11,18 +11,21 @@ const state: WorkflowState = props.workflowState as WorkflowState;
   <div class="item">
     <div class="green-dot">
       <img
-        v-bind:class="{ disabled: state.isDisabled }"
+        v-bind:class="{ disabled: state.isDisabled, transition: true }"
         :src="GreenDot"
-        height="30"
+        height="32"
       />
     </div>
     <div class="details">
-      <img v-bind:class="{ disabled: state.isDisabled }" :src="state.image" />
+      <img
+        v-bind:class="{ disabled: state.isDisabled, transition: true }"
+        :src="state.image"
+      />
       <p v-bind:class="{ disabled: state.isDisabled }">
         {{
           state.isDisabled
             ? "Waiting for your order..."
-            : `${state.title} (${state.orderID})`
+            : `${state.timestamp} - ${state.title} (${state.orderId}.split("-")[1]})`
         }}
       </p>
     </div>
@@ -43,6 +46,10 @@ const state: WorkflowState = props.workflowState as WorkflowState;
 .disabled {
   filter: grayscale(100%);
   color: grey;
+}
+
+.transition {
+  transition: all 0.4s ease-in-out;
 }
 
 .green-dot {

@@ -2,12 +2,31 @@
 import FlagIcon from "./icons/FlagIcon.vue";
 import { pizzaProcessStore } from "../stores";
 import { v4 as uuidv4 } from "uuid";
+import { MenuItemType, type Order } from "@/types/Order";
 const store = pizzaProcessStore();
 
 async function placeOrder() {
+  store.disableOrdering = true;
   const clientId = store.clientId === "" ? uuidv4() : store.clientId;
-  const orderId = getRandomID();
-  store.placeOrder(clientId, orderId);
+  const today = new Date();
+  const timeStamp = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+  const orderId = `${timeStamp}-${getRandomID()}`;
+  const order: Order = {
+    id: orderId,
+    customerName: "Ada",
+    customerAddress: "Amsterdam",
+    menuItems: [
+      {
+        type: MenuItemType.Pizza,
+        name: "Pepperoni pizza",
+      },
+      {
+        type: MenuItemType.Drink,
+        name: "Ice tea",
+      },
+    ],
+  };
+  store.start(clientId, order);
 }
 
 function getRandomID() {
@@ -31,7 +50,9 @@ function getRandomID() {
       <h3>
         Place an order and see the progress of the serverless pizza workflow.
       </h3>
-      <button @click="placeOrder">Place order</button>
+      <button @click="placeOrder" :disabled="store.disableOrdering">
+        Place order
+      </button>
     </div>
     <details>
       <summary>More info about the workflow...</summary>
@@ -81,6 +102,11 @@ button {
 button:hover {
   box-shadow: 0px 0px 10px var(--vt-c-green-dark);
   transition: all 0.1s ease-out;
+}
+
+button:disabled {
+  border-color: var(--vt-c-divider-dark-2);
+  background-color: var(--vt-c-text-dark-2);
 }
 
 .greetings h1,

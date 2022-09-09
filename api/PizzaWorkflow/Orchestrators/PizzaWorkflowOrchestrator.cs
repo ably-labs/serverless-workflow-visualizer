@@ -48,7 +48,7 @@ namespace PizzaWorkflow.Orchestrators
             await context.CreateTimer(context.CurrentUtcDateTime.AddSeconds(new Random().Next(5, 10)), CancellationToken.None);
 
             await context.CallActivityAsync(
-                nameof(CollectMenuItems),
+                nameof(CollectOrder),
                 order);
 
             await context.CallActivityAsync(

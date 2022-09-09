@@ -1,4 +1,4 @@
-orderIdorderIdorderIdorderIdorderId<script setup lang="ts">
+<script setup lang="ts">
 import ProgressItem from "./ProgressItem.vue";
 import { pizzaProcessStore } from "../stores";
 const store = pizzaProcessStore();

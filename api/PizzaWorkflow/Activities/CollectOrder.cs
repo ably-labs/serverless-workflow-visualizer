@@ -7,19 +7,19 @@ using PizzaWorkflow.Models;
 
 namespace PizzaWorkflow.Activities
 {
-    public class CollectMenuItems : MessagingBase
+    public class CollectOrder : MessagingBase
     {
-        public CollectMenuItems(IRestClient ablyClient) : base(ablyClient)
+        public CollectOrder(IRestClient ablyClient) : base(ablyClient)
         {
         }
 
-        [FunctionName(nameof(CollectMenuItems))]
+        [FunctionName(nameof(CollectOrder))]
         public async Task Run(
             [ActivityTrigger] Order order,
             ILogger logger)
         {
             logger.LogInformation($"Collect menu items for order {order.Id}.");
-            await base.PublishAsync(order.Id, "collect-menuitems", order);
+            await base.PublishAsync(order.Id, "collect-order", order);
         }
     }
 }

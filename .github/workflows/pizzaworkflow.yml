@@ -5,9 +5,6 @@ on:
     branches:
       - main
     paths:
-      - '!*.md'
-      - '!src/*'
-      - '!api/Auth/*'
       - 'api/PizzaWorkflow/*'
       - '.github/workflows/pizzaworkflow.yml'
   pull_request:

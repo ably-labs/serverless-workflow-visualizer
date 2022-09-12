@@ -16,7 +16,7 @@ namespace Pizza
             builder.Services.AddSingleton<IRestClient>(ablyClient);
             builder.Services.AddHttpClient("Workflow", httpClient =>
             {
-                httpClient.BaseAddress = new Uri($"https://{Environment.GetEnvironmentVariable("WORKFLOW_FUNCTION_URL")}");
+                httpClient.BaseAddress = new Uri(Environment.GetEnvironmentVariable("WORKFLOW_FUNCTION_URL"));
                 httpClient.DefaultRequestHeaders.Add("x-functions-key", Environment.GetEnvironmentVariable("WORKFLOW_FUNCTION_KEY"));
             });
         }

@@ -64,7 +64,7 @@ jobs:
               --setting-names \
                 "ABLY_API_KEY=${{ steps.ablyapp.outputs.api-key-key }}" \
                 "ABLY_CHANNEL_PREFIX=pizza-workflow" \
-                "WORKFLOW_FUNCTION_URL=$hostName" \
+                "WORKFLOW_FUNCTION_URL=https://$hostName" \
                 "WORKFLOW_FUNCTION_KEY=$functionKey"
 
   close_pull_request_job:

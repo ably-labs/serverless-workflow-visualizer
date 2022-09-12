@@ -22,9 +22,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     isWorkflowComplete: false,
     isOrderPlaced: false,
     orderReceivedState: {
-      messageSentTimeStampUTC: "",
-      messageReceivedTimestamp: "",
-      messageDeliveredTimestamp: "",
+      messageSentTimeStampUTC: 0,
+      messageReceivedTimestamp: 0,
+      messageDeliveredTimestamp: 0,
       title: "Order Received",
       orderId: "",
       image: OrderImage,
@@ -32,9 +32,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       isCurrentState: false,
     },
     kitchenInstructionsState: {
-      messageSentTimeStampUTC: "",
-      messageReceivedTimestamp: "",
-      messageDeliveredTimestamp: "",
+      messageSentTimeStampUTC: 0,
+      messageReceivedTimestamp: 0,
+      messageDeliveredTimestamp: 0,
       title: "Sending instructions to the kitchen",
       orderId: "",
       image: PizzaAndDrinkImage,
@@ -42,9 +42,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       isCurrentState: false,
     },
     preparationState: {
-      messageSentTimeStampUTC: "",
-      messageReceivedTimestamp: "",
-      messageDeliveredTimestamp: "",
+      messageSentTimeStampUTC: 0,
+      messageReceivedTimestamp: 0,
+      messageDeliveredTimestamp: 0,
       title: "Preparing your pizza",
       orderId: "",
       image: PizzaInOvenImage,
@@ -52,9 +52,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       isCurrentState: false,
     },
     collectionState: {
-      messageSentTimeStampUTC: "",
-      messageReceivedTimestamp: "",
-      messageDeliveredTimestamp: "",
+      messageSentTimeStampUTC: 0,
+      messageReceivedTimestamp: 0,
+      messageDeliveredTimestamp: 0,
       title: "Collecting your order",
       orderId: "",
       image: BoxAndDrinkImage,
@@ -62,9 +62,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       isCurrentState: false,
     },
     deliveryState: {
-      messageSentTimeStampUTC: "",
-      messageReceivedTimestamp: "",
-      messageDeliveredTimestamp: "",
+      messageSentTimeStampUTC: 0,
+      messageReceivedTimestamp: 0,
+      messageDeliveredTimestamp: 0,
       title: "Delivering your order",
       orderId: "",
       image: DeliveryImage,
@@ -177,11 +177,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       this.$patch({
         orderReceivedState: {
           orderId: message.data.orderId,
-          messageSentTimeStampUTC: convertToTime(
-            message.data.messageSentTimeStampUTC
-          ),
-          messageReceivedTimestamp: convertToTime(message.timestamp),
-          messageDeliveredTimestamp: convertToTime(Date.now()),
+          messageSentTimeStampUTC: message.data.messageSentTimeStampUTC,
+          messageReceivedTimestamp: message.timestamp,
+          messageDeliveredTimestamp: Date.now(),
           isDisabled: false,
           isCurrentState: true,
         },
@@ -192,11 +190,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       this.$patch({
         kitchenInstructionsState: {
           orderId: message.data.orderId,
-          messageSentTimeStampUTC: convertToTime(
-            message.data.messageSentTimeStampUTC
-          ),
-          messageReceivedTimestamp: convertToTime(message.timestamp),
-          messageDeliveredTimestamp: convertToTime(Date.now()),
+          messageSentTimeStampUTC: message.data.messageSentTimeStampUTC,
+          messageReceivedTimestamp: message.timestamp,
+          messageDeliveredTimestamp: Date.now(),
           isDisabled: false,
           isCurrentState: true,
         },
@@ -210,11 +206,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       this.$patch({
         preparationState: {
           orderId: message.data.orderId,
-          messageSentTimeStampUTC: convertToTime(
-            message.data.messageSentTimeStampUTC
-          ),
-          messageReceivedTimestamp: convertToTime(message.timestamp),
-          messageDeliveredTimestamp: convertToTime(Date.now()),
+          messageSentTimeStampUTC: message.data.messageSentTimeStampUTC,
+          messageReceivedTimestamp: message.timestamp,
+          messageDeliveredTimestamp: Date.now(),
           isDisabled: false,
           isCurrentState: true,
         },
@@ -228,11 +222,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       this.$patch({
         collectionState: {
           orderId: message.data.orderId,
-          messageSentTimeStampUTC: convertToTime(
-            message.data.messageSentTimeStampUTC
-          ),
-          messageReceivedTimestamp: convertToTime(message.timestamp),
-          messageDeliveredTimestamp: convertToTime(Date.now()),
+          messageSentTimeStampUTC: message.data.messageSentTimeStampUTC,
+          messageReceivedTimestamp: message.timestamp,
+          messageDeliveredTimestamp: Date.now(),
           isDisabled: false,
           isCurrentState: true,
         },
@@ -246,11 +238,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       this.$patch({
         deliveryState: {
           orderId: message.data.orderId,
-          messageSentTimeStampUTC: convertToTime(
-            message.data.messageSentTimeStampUTC
-          ),
-          messageReceivedTimestamp: convertToTime(message.timestamp),
-          messageDeliveredTimestamp: convertToTime(Date.now()),
+          messageSentTimeStampUTC: message.data.messageSentTimeStampUTC,
+          messageReceivedTimestamp: message.timestamp,
+          messageDeliveredTimestamp: Date.now(),
           isDisabled: false,
           isCurrentState: true,
         },
@@ -265,14 +255,3 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     },
   },
 });
-
-function convertToTime(timestamp: number) {
-  const date = new Date(timestamp);
-  const hours = date.getHours().toString();
-  const minutes = date.getMinutes().toString();
-  const seconds = date.getSeconds().toString();
-  return `${hours.padStart(2, "0")}:${minutes.padStart(
-    2,
-    "0"
-  )}:${seconds.padStart(2, "0")}`;
-}

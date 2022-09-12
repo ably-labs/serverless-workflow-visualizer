@@ -48,16 +48,16 @@ jobs:
           api_location: "api/Auth" # Api source code path - optional
           output_location: "dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-      - name: Set SWA Settings
-        uses: azure/CLI@v1.0.6
-        with:
-          inlineScript: |
-            az staticwebapp appsettings set \
-              --name ${{ env.SWA_NAME }} \
-              --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
-              --setting-names \
-                "ABLY_API_KEY=${{ steps.ablyapp.outputs.api-key-key }}" \
-                "ABLY_CHANNEL_PREFIX=pizza-workflow"
+      # - name: Set SWA Settings
+      #   uses: azure/CLI@v1.0.6
+      #   with:
+      #     inlineScript: |
+      #       az staticwebapp appsettings set \
+      #         --name ${{ env.SWA_NAME }} \
+      #         --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
+      #         --setting-names \
+      #           "ABLY_API_KEY=${{ steps.ablyapp.outputs.api-key-key }}" \
+      #           "ABLY_CHANNEL_PREFIX=pizza-workflow"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

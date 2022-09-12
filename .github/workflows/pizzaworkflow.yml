@@ -4,18 +4,22 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - '*.md'
-      - 'src/*'
-      - 'api/Auth/*'
+    paths:
+      - '!*.md'
+      - '!src/*'
+      - '!api/Auth/*'
+      - 'api/PizzaWorkflow/*'
+      - '.github/workflows/pizzaworkflow.yml'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
-    paths-ignore:
-      - '*.md'
-      - 'src/*'
-      - 'api/Auth/*'
+    paths:
+      - '!*.md'
+      - '!src/*'
+      - '!api/Auth/*'
+      - 'api/PizzaWorkflow/*'
+      - '.github/workflows/pizzaworkflow.yml'
   workflow_dispatch:
 
 env:

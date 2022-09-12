@@ -9,7 +9,7 @@ on:
 
 env:
   FUNCTION_APP_NAME: pizza-workflow-fa
-  RESOURCE_GROUP_NAME: pizza-workflow-rg
+  RESOURCE_GROUP_NAME: serverless-workflow-visualizer-rg
 
 jobs:
   create_infra:

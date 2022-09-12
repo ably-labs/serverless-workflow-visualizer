@@ -56,8 +56,8 @@ jobs:
         uses: azure/CLI@v1.0.6
         with:
           inlineScript: |
-            hostName=$(az functionapp show --name ${{ env.FUNCTION_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP_NAME }} --query "defaultHostName")
-            functionKey=$(az functionapp function keys list --resource-group ${{ env.RESOURCE_GROUP_NAME }} --function-name StartWorkflow --name ${{ env.FUNCTION_APP_NAME }} --query="default")
+            hostName=$(az functionapp show --name ${{ env.FUNCTION_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP_NAME }} --query "defaultHostName" -o tsv)
+            functionKey=$(az functionapp function keys list --resource-group ${{ env.RESOURCE_GROUP_NAME }} --function-name StartWorkflow --name ${{ env.FUNCTION_APP_NAME }} --query="default" -o tsv)
             az staticwebapp appsettings set \
               --name ${{ env.SWA_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP_NAME }} \

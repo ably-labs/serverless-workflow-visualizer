@@ -22,7 +22,7 @@ namespace PizzaWorkflow.Activities
         {
             logger.LogInformation($"Collect menu items for order {order.Id}.");
             Thread.Sleep(new Random().Next(3000, 6000));
-            await base.PublishAsync(order.Id, "collect-order", order);
+            await base.PublishAsync(order.Id, "collect-order", new WorkflowState(order.Id));
         }
     }
 }

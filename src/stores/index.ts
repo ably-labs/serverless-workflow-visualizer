@@ -22,7 +22,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     isWorkflowComplete: false,
     isOrderPlaced: false,
     orderReceivedState: {
-      timestamp: "",
+      messageSentTimeStampUTC: "",
+      messageReceivedTimestamp: "",
+      messageDeliveredTimestamp: "",
       title: "Order Received",
       orderId: "",
       image: OrderImage,
@@ -30,7 +32,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       isCurrentState: false,
     },
     kitchenInstructionsState: {
-      timestamp: "",
+      messageSentTimeStampUTC: "",
+      messageReceivedTimestamp: "",
+      messageDeliveredTimestamp: "",
       title: "Sending instructions to the kitchen",
       orderId: "",
       image: PizzaAndDrinkImage,
@@ -38,7 +42,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       isCurrentState: false,
     },
     preparationState: {
-      timestamp: "",
+      messageSentTimeStampUTC: "",
+      messageReceivedTimestamp: "",
+      messageDeliveredTimestamp: "",
       title: "Preparing your pizza",
       orderId: "",
       image: PizzaInOvenImage,
@@ -46,7 +52,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       isCurrentState: false,
     },
     collectionState: {
-      timestamp: "",
+      messageSentTimeStampUTC: "",
+      messageReceivedTimestamp: "",
+      messageDeliveredTimestamp: "",
       title: "Collecting your order",
       orderId: "",
       image: BoxAndDrinkImage,
@@ -54,7 +62,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       isCurrentState: false,
     },
     deliveryState: {
-      timestamp: "",
+      messageSentTimeStampUTC: "",
+      messageReceivedTimestamp: "",
+      messageDeliveredTimestamp: "",
       title: "Delivering your order",
       orderId: "",
       image: DeliveryImage,
@@ -166,8 +176,12 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     handleOrderReceived(message: Types.Message) {
       this.$patch({
         orderReceivedState: {
-          timestamp: convertToTime(message.timestamp),
-          orderId: message.data.id,
+          orderId: message.data.orderId,
+          messageSentTimeStampUTC: convertToTime(
+            message.data.messageSentTimeStampUTC
+          ),
+          messageReceivedTimestamp: convertToTime(message.timestamp),
+          messageDeliveredTimestamp: convertToTime(Date.now()),
           isDisabled: false,
           isCurrentState: true,
         },
@@ -177,8 +191,12 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     handleSendInstructions(message: Types.Message) {
       this.$patch({
         kitchenInstructionsState: {
-          timestamp: convertToTime(message.timestamp),
-          orderId: message.data[0].orderId,
+          orderId: message.data.orderId,
+          messageSentTimeStampUTC: convertToTime(
+            message.data.messageSentTimeStampUTC
+          ),
+          messageReceivedTimestamp: convertToTime(message.timestamp),
+          messageDeliveredTimestamp: convertToTime(Date.now()),
           isDisabled: false,
           isCurrentState: true,
         },
@@ -191,8 +209,12 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     handlePreparePizza(message: Types.Message) {
       this.$patch({
         preparationState: {
-          timestamp: convertToTime(message.timestamp),
           orderId: message.data.orderId,
+          messageSentTimeStampUTC: convertToTime(
+            message.data.messageSentTimeStampUTC
+          ),
+          messageReceivedTimestamp: convertToTime(message.timestamp),
+          messageDeliveredTimestamp: convertToTime(Date.now()),
           isDisabled: false,
           isCurrentState: true,
         },
@@ -205,8 +227,12 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     handleCollectOrder(message: Types.Message) {
       this.$patch({
         collectionState: {
-          timestamp: convertToTime(message.timestamp),
-          orderId: message.data.id,
+          orderId: message.data.orderId,
+          messageSentTimeStampUTC: convertToTime(
+            message.data.messageSentTimeStampUTC
+          ),
+          messageReceivedTimestamp: convertToTime(message.timestamp),
+          messageDeliveredTimestamp: convertToTime(Date.now()),
           isDisabled: false,
           isCurrentState: true,
         },
@@ -219,8 +245,12 @@ export const pizzaProcessStore = defineStore("pizza-process", {
     handleDeliverOrder(message: Types.Message) {
       this.$patch({
         deliveryState: {
-          timestamp: convertToTime(message.timestamp),
-          orderId: message.data.id,
+          orderId: message.data.orderId,
+          messageSentTimeStampUTC: convertToTime(
+            message.data.messageSentTimeStampUTC
+          ),
+          messageReceivedTimestamp: convertToTime(message.timestamp),
+          messageDeliveredTimestamp: convertToTime(Date.now()),
           isDisabled: false,
           isCurrentState: true,
         },

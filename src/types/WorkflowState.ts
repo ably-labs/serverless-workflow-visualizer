@@ -4,5 +4,7 @@ export type WorkflowState = {
   image: string;
   isDisabled: boolean;
   isCurrentState: boolean;
-  timestamp: string;
+  messageSentTimeStampUTC: string;
+  messageReceivedTimestamp: string;
+  messageDeliveredTimestamp: string;
 };

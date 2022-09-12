@@ -32,7 +32,7 @@ namespace PizzaWorkflow.Activities
                     });
             }
 
-            await base.PublishAsync(order.Id, "receive-order", order);
+            await base.PublishAsync(order.Id, "receive-order", new WorkflowState(order.Id));
 
             return instructions;
         }

@@ -5,6 +5,10 @@ export interface WorkflowStateInterface {
   state: WorkflowState;
 }
 const props = defineProps<WorkflowStateInterface>();
+
+function getImgTitle(state: WorkflowState) {
+  return `Sent: ${state.messageSentTimeStampUTC} (UTC)\nReceived: ${state.messageReceivedTimestamp} (local)\nDelivered: ${state.messageDeliveredTimestamp} (local)`;
+}
 </script>
 
 <template>
@@ -21,6 +25,7 @@ const props = defineProps<WorkflowStateInterface>();
     </div>
     <div class="details">
       <img
+        v-bind:title="getImgTitle(props.state)"
         v-bind:class="{
           disabled: props.state.isDisabled,
           transition: true,
@@ -31,9 +36,9 @@ const props = defineProps<WorkflowStateInterface>();
         {{
           props.state.isDisabled
             ? "Waiting for your order..."
-            : `${props.state.timestamp} - ${props.state.title} (${
-                props.state.orderId.split("-")[1]
-              })`
+            : `${props.state.messageReceivedTimestamp} - ${
+                props.state.title
+              } (${props.state.orderId.split("-")[1]})`
         }}
       </p>
     </div>

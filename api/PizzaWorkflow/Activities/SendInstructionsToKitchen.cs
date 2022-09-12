@@ -24,7 +24,8 @@ namespace PizzaWorkflow.Activities
         {
             logger.LogInformation($"Sending instructions to kitchen.");
             Thread.Sleep(new Random().Next(3000, 6000));
-            await base.PublishAsync(instructions.First().OrderId, "send-instructions-to-kitchen", instructions);
+            var orderId = instructions.First().OrderId;
+            await base.PublishAsync(orderId, "send-instructions-to-kitchen", new WorkflowState(orderId));
         }
     }
 }

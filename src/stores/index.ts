@@ -8,6 +8,7 @@ import PizzaAndDrinkImage from "../assets/PizzaAndDrink.png";
 import PizzaInOvenImage from "../assets/PizzaInOven.png";
 import BoxAndDrinkImage from "../assets/BoxAndDrink.png";
 import DeliveryImage from "../assets/Delivery.png";
+import DeliveredImage from "../assets/Map.gif";
 import type { Order } from "@/types/Order";
 
 export const pizzaProcessStore = defineStore("pizza-process", {
@@ -28,6 +29,7 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       title: "Order Received",
       orderId: "",
       image: OrderImage,
+      isVisible: true,
       isDisabled: true,
       isCurrentState: false,
     },
@@ -38,6 +40,7 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       title: "Sending instructions to the kitchen",
       orderId: "",
       image: PizzaAndDrinkImage,
+      isVisible: false,
       isDisabled: true,
       isCurrentState: false,
     },
@@ -48,6 +51,7 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       title: "Preparing your pizza",
       orderId: "",
       image: PizzaInOvenImage,
+      isVisible: false,
       isDisabled: true,
       isCurrentState: false,
     },
@@ -58,6 +62,7 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       title: "Collecting your order",
       orderId: "",
       image: BoxAndDrinkImage,
+      isVisible: false,
       isDisabled: true,
       isCurrentState: false,
     },
@@ -68,6 +73,18 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       title: "Delivering your order",
       orderId: "",
       image: DeliveryImage,
+      isVisible: false,
+      isDisabled: true,
+      isCurrentState: false,
+    },
+    deliveredState: {
+      messageSentTimeStampUTC: 0,
+      messageReceivedTimestamp: 0,
+      messageDeliveredTimestamp: 0,
+      title: "Order is delivered",
+      orderId: "",
+      image: DeliveredImage,
+      isVisible: false,
       isDisabled: true,
       isCurrentState: false,
     },
@@ -171,6 +188,12 @@ export const pizzaProcessStore = defineStore("pizza-process", {
           this.handleDeliverOrder(message);
         }
       );
+      this.channelInstance?.subscribe(
+        "delivered-order",
+        (message: Types.Message) => {
+          this.handleDeliveredOrder(message);
+        }
+      );
     },
 
     handleOrderReceived(message: Types.Message) {
@@ -182,6 +205,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
           messageDeliveredTimestamp: Date.now(),
           isDisabled: false,
           isCurrentState: true,
+        },
+        kitchenInstructionsState: {
+          isVisible: true,
         },
       });
     },
@@ -199,6 +225,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
         orderReceivedState: {
           isCurrentState: false,
         },
+        preparationState: {
+          isVisible: true,
+        },
       });
     },
 
@@ -214,6 +243,9 @@ export const pizzaProcessStore = defineStore("pizza-process", {
         },
         kitchenInstructionsState: {
           isCurrentState: false,
+        },
+        collectionState: {
+          isVisible: true,
         },
       });
     },
@@ -231,12 +263,34 @@ export const pizzaProcessStore = defineStore("pizza-process", {
         preparationState: {
           isCurrentState: false,
         },
+        deliveryState: {
+          isVisible: true,
+        },
       });
     },
 
     handleDeliverOrder(message: Types.Message) {
       this.$patch({
         deliveryState: {
+          orderId: message.data.orderId,
+          messageSentTimeStampUTC: message.data.messageSentTimeStampUTC,
+          messageReceivedTimestamp: message.timestamp,
+          messageDeliveredTimestamp: Date.now(),
+          isDisabled: false,
+          isCurrentState: true,
+        },
+        collectionState: {
+          isCurrentState: false,
+        },
+        deliveredState: {
+          isVisible: true,
+        },
+      });
+    },
+
+    handleDeliveredOrder(message: Types.Message) {
+      this.$patch({
+        deliveredState: {
           orderId: message.data.orderId,
           messageSentTimeStampUTC: message.data.messageSentTimeStampUTC,
           messageReceivedTimestamp: message.timestamp,

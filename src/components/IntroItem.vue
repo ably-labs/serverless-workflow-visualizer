@@ -59,14 +59,14 @@ function getRandomID() {
     <div class="flex-center">
       <details>
         <summary>More info about the workflow...</summary>
-        <p>
+        <p class="animate">
           The serverless workflow is implemented using
           <a
             href="https://docs.microsoft.com/azure/azure-functions/durable/durable-functions-overview"
           >
             Azure Durable Functions
           </a>
-          . The <code>PizzaWorkflowOrchestrator</code> function calls 5 activity
+          . The <code>PizzaWorkflowOrchestrator</code> function calls 6 activity
           functions in sequence. Each of these functions publishes a message via
           <a href="https://ably.com/docs/quick-start-guide">Ably</a> which is
           received by this website so you can see how far the workflow has

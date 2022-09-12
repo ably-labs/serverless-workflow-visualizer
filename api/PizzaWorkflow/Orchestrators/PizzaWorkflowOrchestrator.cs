@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using PizzaWorkflow.Activities;
 using PizzaWorkflow.Models;
@@ -46,6 +44,10 @@ namespace PizzaWorkflow.Orchestrators
 
             await context.CallActivityAsync(
                 nameof(DeliverOrder),
+                order);
+
+            await context.CallActivityAsync(
+                nameof(DeliveredOrder),
                 order);
         }
     }

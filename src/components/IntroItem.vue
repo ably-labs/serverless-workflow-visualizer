@@ -9,7 +9,6 @@ const store = pizzaProcessStore();
 const { disableOrdering } = storeToRefs(store);
 
 async function placeOrder() {
-  // store.disableOrdering = true;
   const clientId = store.clientId === "" ? uuidv4() : store.clientId;
   const today = new Date();
   const timeStamp = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
@@ -71,7 +70,8 @@ function getRandomID() {
           functions in sequence. Each of these functions publishes a message via
           <a href="https://ably.com/docs/quick-start-guide">Ably</a> which is
           received by this website so you can see how far the workflow has
-          progressed in real-time.
+          progressed in real-time. Hover the over the images to see how quick
+          the messages are being published.
         </p>
       </details>
     </div>

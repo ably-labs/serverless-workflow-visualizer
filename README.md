@@ -1,34 +1,13 @@
-# Serverless workflow visualizer
+# Serverless Pizza Workflow Visualizer
 
-This repo contains a web application that visualizes the progress of a business process that has been implemented with serverless functions.
+A pizza-themed visualization of a serverless back-end process that uses pubsub to display the progress in realtime.
 
----
 
-// This is a template repository to be used for all Ably Labs demos, tools &amp; proof of concepts. Follow these steps to so this repo is easy to use for visitors & maintainers.
-
-1. Update the description of this repo.
-2. Add [topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics) to this repo to clarify the language, tech stack and use case.
-3. Update the [.gitignore](.gitignore) file with one of the [standard templates from GitHub](https://github.com/github/gitignore).
-
-6. Update this README so it provides enough information for people to understand how it works, how to run it locally and how it can be deployed to the cloud (see [GitHub](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)).
-7. Update the query string in the static asset link:
-  - For the logo at the bottom of this README and
-  - Please use a custom `favicon` if you're creating a web app. The favicon should use the ably static asset endpoint `<link rel="icon" type="image/svg+xml" href="https://static.ably.dev/motif-red.svg?lorem-ipsum" />` and ensure this uses the same unique identifier as the Ably logo on the README.
-  - More info in [this repo](https://github.com/ably-labs/static-assets).
-8. Add a GitHub workflow to build/test/deploy your application. Use the [Ably Control API GitHub action](https://github.com/ably-labs/ably-control-api-action) to avoid creating Ably apps/API keys manually (see the `create-infra.yml` workflow in this repo).
-9. Add this repository to the [selected repositories in the Ably Labs org](https://github.com/organizations/ably-labs/settings/actions) that are allowed to run GitHub Actions.
-
-Once you're done, remove this section from the README. Good luck! 💪
-
----
-
-![Place eye candy header image here](https://placekitten.com/640/360)
-
-*// Place eye candy header image here ⬆️*
+![Serverless Pizza Workflow Visualizer Web App](/media/app.png)
 
 ## Description
 
-// Explanation of the contents of the repository. Describe the use case.
+This repo contains a web application that visualizes the progress of a business process that has been implemented with serverless functions.
 
 ## Tech stack
 

@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 env:
-  FUNCTION_APP_NAME: pizza-workflow-fa
-  RESOURCE_GROUP_NAME: serverless-workflow-visualizer-rg
+  FUNCTION_APP_NAME: 'pizza-workflow-fa'
+  RESOURCE_GROUP_NAME: 'serverless-workflow-visualizer-rg'
 
 jobs:
   create_infra:

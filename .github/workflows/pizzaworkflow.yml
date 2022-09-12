@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 env:
-  FUNCTION_APP_NAME: pizza-workflow-fa
+  FUNCTION_APP_NAME: 'pizza-workflow-fa'
   FUNCTION_APP_PACKAGE_PATH: 'api/PizzaWorkflow'
   RESOURCE_GROUP_NAME: serverless-workflow-visualizer-rg
   DOTNET_VERSION: '6.0.x'
@@ -38,7 +38,7 @@ jobs:
             create-key: 'true'
             key-name: 'pub sub only'
             key-capabilities: 'publish, subscribe'
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v3
       - uses: azure/login@v1.4.6
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}

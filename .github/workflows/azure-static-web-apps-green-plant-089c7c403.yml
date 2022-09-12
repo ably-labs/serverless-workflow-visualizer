@@ -16,8 +16,9 @@ on:
       - 'src/PizzaWorkflow/*'
 
 env:
-  SWA_NAME: serverless-workflow-visualizer-swa
-  RESOURCE_GROUP_NAME: serverless-workflow-visualizer-rg
+  FUNCTION_APP_NAME: 'pizza-workflow-fa'
+  SWA_NAME: 'serverless-workflow-visualizer-swa'
+  RESOURCE_GROUP_NAME: 'serverless-workflow-visualizer-rg'
 
 jobs:
   build_and_deploy_job:
@@ -55,12 +56,16 @@ jobs:
         uses: azure/CLI@v1.0.6
         with:
           inlineScript: |
+            hostName=$(az functionapp show --name ${{ env.FUNCTION_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP_NAME }} --query "defaultHostName")
+            functionKey=$(az functionapp function keys list --resource-group ${{ env.RESOURCE_GROUP_NAME }} --function-name StartWorkflow --name ${{ env.FUNCTION_APP_NAME }} --query="default")
             az staticwebapp appsettings set \
               --name ${{ env.SWA_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
               --setting-names \
                 "ABLY_API_KEY=${{ steps.ablyapp.outputs.api-key-key }}" \
-                "ABLY_CHANNEL_PREFIX=pizza-workflow"
+                "ABLY_CHANNEL_PREFIX=pizza-workflow" \
+                "WORKFLOW_FUNCTION_URL=$hostName" \
+                "WORKFLOW_FUNCTION_KEY=$functionKey"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

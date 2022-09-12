@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { WorkflowState } from "@/types/WorkflowState";
 import GreenDot from "../assets/GreenDot.png";
-const props = defineProps({
-  workflowState: Object,
-});
+export interface WorkflowStateInterface {
+  state: WorkflowState;
+}
+const props = defineProps<WorkflowStateInterface>();
 </script>
 
 <template>
@@ -11,7 +12,7 @@ const props = defineProps({
     <div class="green-dot">
       <img
         v-bind:class="{
-          disabled: props.workflowState?.isDisabled,
+          disabled: props.state.isDisabled,
           transition: true,
         }"
         :src="GreenDot"
@@ -21,18 +22,18 @@ const props = defineProps({
     <div class="details">
       <img
         v-bind:class="{
-          disabled: props.workflowState?.isDisabled,
+          disabled: props.state.isDisabled,
           transition: true,
         }"
-        :src="props.workflowState?.image"
+        :src="props.state.image"
       />
-      <p v-bind:class="{ disabled: props.workflowState?.isDisabled }">
+      <p v-bind:class="{ disabled: props.state.isDisabled }">
         {{
-          props.workflowState?.isDisabled
+          props.state.isDisabled
             ? "Waiting for your order..."
-            : `${props.workflowState?.timestamp} - ${
-                props.workflowState?.title
-              } (${props.workflowState?.orderId.split("-")[1]})`
+            : `${props.state.timestamp} - ${props.state.title} (${
+                props.state.orderId.split("-")[1]
+              })`
         }}
       </p>
     </div>

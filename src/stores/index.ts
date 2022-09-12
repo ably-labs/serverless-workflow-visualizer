@@ -238,8 +238,11 @@ export const pizzaProcessStore = defineStore("pizza-process", {
 
 function convertToTime(timestamp: number) {
   const date = new Date(timestamp);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-  return `${hours}:${minutes}:${seconds}`;
+  const hours = date.getHours().toString();
+  const minutes = date.getMinutes().toString();
+  const seconds = date.getSeconds().toString();
+  return `${hours.padStart(2, "0")}:${minutes.padStart(
+    2,
+    "0"
+  )}:${seconds.padStart(2, "0")}`;
 }

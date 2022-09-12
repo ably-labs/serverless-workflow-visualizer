@@ -15,15 +15,9 @@ const {
 </script>
 
 <template>
-  <ProgressItem
-    :workflow-state="orderReceivedState as WorkflowState"
-    :order-i-d="store.orderId"
-  />
-  <ProgressItem
-    :workflow-state="kitchenInstructionsState"
-    :order-i-d="store.orderId"
-  />
-  <ProgressItem :workflow-state="preparationState" :order-i-d="store.orderId" />
-  <ProgressItem :workflow-state="collectionState" :order-i-d="store.orderId" />
-  <ProgressItem :workflow-state="deliveryState" :order-i-d="store.orderId" />
+  <ProgressItem :state="(orderReceivedState as WorkflowState)" />
+  <ProgressItem :state="(kitchenInstructionsState as WorkflowState)" />
+  <ProgressItem :state="(preparationState as WorkflowState)" />
+  <ProgressItem :state="(collectionState as WorkflowState)" />
+  <ProgressItem :state="(deliveryState as WorkflowState)" />
 </template>

@@ -4,19 +4,27 @@ on:
   push:
     paths:
       - '.github/workflows/create-infra.yml'
+      - '.infra/*'
   workflow_dispatch:
+
+env:
+  FUNCTION_APP_NAME: pizza-workflow-fa
+  RESOURCE_GROUP_NAME: pizza-workflow-rg
 
 jobs:
   create_infra:
     runs-on: ubuntu-latest
-    name: Create Ably App
+    name: Create Function App Resources
     steps:
-      - name: Create Ably App
-        id: ablyapp
-        uses: ably-labs/ably-control-api-action@v0.1.6
+      - uses: actions/checkout@main
+      - uses: azure/login@v1
         with:
-            account-id: '${{ secrets.ABLY_ACCOUNT_ID }}'
-            control-api-key: '${{ secrets.ABLY_CONTROL_API_KEY }}'
-            create-key: 'true'
-            key-name: 'pub sub only'
-            key-capabilities: 'publish, subscribe'
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: deploy
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
+          template: ./infra/main.bicep
+          parameters: 'appName=${{ env.FUNCTION_APP_NAME }} storagePrefix=pizzawf storageAccountType=Standard_LRS runtime=dotnet'
+          failOnStdErr: false

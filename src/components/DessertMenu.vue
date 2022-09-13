@@ -17,10 +17,11 @@ import FlagIcon from "./icons/FlagIcon.vue";
           >
           (the star of our desserts ⭐)
         </li>
-        <!-- <li>
-          <a href="https://ably.com/blog">Blog post</a>
-          (our most read menu item 📖)
-        </li> -->
+        <li>
+          Blog post (the chef is still working on this ✍️)
+          <!-- <a href="https://ably.com/blog">Blog post</a>
+          (our most read menu item 📖) -->
+        </li>
         <li>
           <a href="https://www.youtube.com/c/AblyRealtime">YouTube</a>
           (please eat with your thumbs up 👍)
@@ -30,7 +31,10 @@ import FlagIcon from "./icons/FlagIcon.vue";
           (ideal for sharing 👥)
         </li>
         <li>
-          <a href="https://ably.com/">Ably website</a>
+          <a
+            href="https://ably.com/?utm_source=pizza&utm_medium=ably-dev&utm_campaign=serverless-workflow-visualizer"
+            >Ably website</a
+          >
           (hungry for more? 🍴🌍)
         </li>
       </ul>

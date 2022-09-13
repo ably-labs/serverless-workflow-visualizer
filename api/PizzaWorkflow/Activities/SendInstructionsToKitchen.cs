@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using IO.Ably;
 using PizzaWorkflow.Models;
 using System.Linq;
+using System.Threading;
+using System;
 
 namespace PizzaWorkflow.Activities
 {
@@ -21,7 +23,9 @@ namespace PizzaWorkflow.Activities
             ILogger logger)
         {
             logger.LogInformation($"Sending instructions to kitchen.");
-            await base.PublishAsync(instructions.First().OrderId, "send-instructions-to-kitchen", instructions);
+            Thread.Sleep(new Random().Next(3000, 6000));
+            var orderId = instructions.First().OrderId;
+            await base.PublishAsync(orderId, "send-instructions-to-kitchen", new WorkflowState(orderId));
         }
     }
 }

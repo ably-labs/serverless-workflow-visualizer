@@ -11,6 +11,7 @@ export type PizzaWorkflow = RealtimeState & {
   preparationState: WorkflowState;
   collectionState: WorkflowState;
   deliveryState: WorkflowState;
+  deliveredState: WorkflowState;
   isOrderPlaced: boolean;
 };
 

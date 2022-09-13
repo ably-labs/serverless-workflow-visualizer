@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using PizzaWorkflow.Activities;
 using PizzaWorkflow.Models;
@@ -23,13 +21,9 @@ namespace PizzaWorkflow.Orchestrators
                 nameof(ReceiveOrder),
                 order);
 
-
             await context.CallActivityAsync(
                     nameof(SendInstructionsToKitchen),
                     instructions);
-
-            // Simulate the time it takes to start with the order
-            await context.CreateTimer(context.CurrentUtcDateTime.AddSeconds(new Random().Next(5, 10)), CancellationToken.None);
 
             var preparationTasks = new List<Task>();
             foreach (var instruction in instructions)
@@ -44,15 +38,16 @@ namespace PizzaWorkflow.Orchestrators
 
             await Task.WhenAll(preparationTasks);
 
-            // Simulate the time it takes to collect the items for the order.
-            await context.CreateTimer(context.CurrentUtcDateTime.AddSeconds(new Random().Next(5, 10)), CancellationToken.None);
-
             await context.CallActivityAsync(
                 nameof(CollectOrder),
                 order);
 
             await context.CallActivityAsync(
                 nameof(DeliverOrder),
+                order);
+
+            await context.CallActivityAsync(
+                nameof(DeliveredOrder),
                 order);
         }
     }

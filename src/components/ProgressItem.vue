@@ -1,9 +1,49 @@
 <script setup lang="ts">
 import type { WorkflowState } from "@/types/WorkflowState";
 import GreenDot from "../assets/GreenDot.png";
-const props = defineProps({
-  workflowState: Object,
-});
+export interface WorkflowStateInterface {
+  state: WorkflowState;
+}
+const props = defineProps<WorkflowStateInterface>();
+
+function convertToTimeSeconds(timestamp: number) {
+  const date = new Date(timestamp);
+  const hours = date.getHours().toString();
+  const minutes = date.getMinutes().toString();
+  const seconds = date.getSeconds().toString();
+  return `${hours.padStart(2, "0")}:${minutes.padStart(
+    2,
+    "0"
+  )}:${seconds.padStart(2, "0")}`;
+}
+
+function convertToTimeMilliseconds(timestamp: number) {
+  const date = new Date(timestamp);
+  const hours = date.getHours().toString();
+  const minutes = date.getMinutes().toString();
+  const seconds = date.getSeconds().toString();
+  const milliseconds = date.getMilliseconds().toString();
+  return `${hours.padStart(2, "0")}:${minutes.padStart(
+    2,
+    "0"
+  )}:${seconds.padStart(2, "0")}.${milliseconds.padStart(3, "0")}`;
+}
+
+function getImgTitle(state: WorkflowState) {
+  if (state.isDisabled) {
+    return "Waiting...";
+  } else {
+    return `Sent from workflow: ${convertToTimeMilliseconds(
+      state.messageSentTimeStampUTC
+    )}\nReceived by Ably: ${convertToTimeMilliseconds(
+      state.messageReceivedTimestamp
+    )} (${
+      state.messageReceivedTimestamp - state.messageSentTimeStampUTC
+    }ms)\nReceived in front-end: ${convertToTimeMilliseconds(
+      state.messageDeliveredTimestamp
+    )} (${state.messageDeliveredTimestamp - state.messageSentTimeStampUTC}ms)`;
+  }
+}
 </script>
 
 <template>
@@ -11,7 +51,7 @@ const props = defineProps({
     <div class="green-dot">
       <img
         v-bind:class="{
-          disabled: props.workflowState?.isDisabled,
+          disabled: props.state.isDisabled,
           transition: true,
         }"
         :src="GreenDot"
@@ -20,19 +60,21 @@ const props = defineProps({
     </div>
     <div class="details">
       <img
+        v-bind:alt="props.state.title"
+        v-bind:title="getImgTitle(props.state)"
         v-bind:class="{
-          disabled: props.workflowState?.isDisabled,
+          disabled: props.state.isDisabled,
           transition: true,
         }"
-        :src="props.workflowState?.image"
+        :src="props.state.image"
       />
-      <p v-bind:class="{ disabled: props.workflowState?.isDisabled }">
+      <p v-bind:class="{ disabled: props.state.isDisabled }">
         {{
-          props.workflowState?.isDisabled
+          props.state.isDisabled
             ? "Waiting for your order..."
-            : `${props.workflowState?.timestamp} - ${
-                props.workflowState?.title
-              } (${props.workflowState?.orderId.split("-")[1]})`
+            : `${convertToTimeSeconds(
+                props.state.messageReceivedTimestamp
+              )} - ${props.state.title} (${props.state.orderId.split("-")[1]})`
         }}
       </p>
     </div>
@@ -55,8 +97,12 @@ const props = defineProps({
   color: grey;
 }
 
+.details > img.disabled {
+  scale: 0.75;
+}
+
 .transition {
-  transition: all 0.4s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .green-dot {

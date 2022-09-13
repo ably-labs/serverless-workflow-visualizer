@@ -9,7 +9,6 @@ const store = pizzaProcessStore();
 const { disableOrdering } = storeToRefs(store);
 
 async function placeOrder() {
-  // store.disableOrdering = true;
   const clientId = store.clientId === "" ? uuidv4() : store.clientId;
   const today = new Date();
   const timeStamp = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
@@ -60,18 +59,21 @@ function getRandomID() {
     <div class="flex-center">
       <details>
         <summary>More info about the workflow...</summary>
-        <p>
+        <p class="animate">
           The serverless workflow is implemented using
           <a
             href="https://docs.microsoft.com/azure/azure-functions/durable/durable-functions-overview"
           >
             Azure Durable Functions
           </a>
-          . The <code>PizzaWorkflowOrchestrator</code> function calls 5 activity
+          . The <code>PizzaWorkflowOrchestrator</code> function calls 6 activity
           functions in sequence. Each of these functions publishes a message via
-          <a href="https://ably.com/docs/quick-start-guide">Ably</a> which is
-          received by this website so you can see how far the workflow has
-          progressed in real-time.
+          <a
+            href="https://ably.com/docs/quick-start-guide?utm_source=pizza&utm_medium=ably-dev&utm_campaign=serverless-workflow-visualizer"
+            >Ably</a
+          >
+          , which is received by this website, so you can see how far the
+          workflow has progressed in real-time.
         </p>
       </details>
     </div>
@@ -79,6 +81,8 @@ function getRandomID() {
 </template>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap");
+
 h1 {
   font-weight: bold;
   font-size: 2.6rem;
@@ -100,7 +104,7 @@ button {
   padding: 0.7rem;
   font-size: 1.2rem;
   margin-top: 1rem;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: "Comic Sans MS", "Comic Neue", cursive;
   transition: all 0.4s ease-out;
 }
 

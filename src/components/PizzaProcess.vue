@@ -11,19 +11,56 @@ const {
   preparationState,
   collectionState,
   deliveryState,
+  deliveredState,
 } = storeToRefs(store);
 </script>
 
 <template>
   <ProgressItem
-    :workflow-state="orderReceivedState as WorkflowState"
-    :order-i-d="store.orderId"
+    class="animate"
+    :state="(orderReceivedState as WorkflowState)"
   />
   <ProgressItem
-    :workflow-state="kitchenInstructionsState"
-    :order-i-d="store.orderId"
+    class="animate"
+    v-if="(kitchenInstructionsState as WorkflowState).isVisible"
+    :state="(kitchenInstructionsState as WorkflowState)"
   />
-  <ProgressItem :workflow-state="preparationState" :order-i-d="store.orderId" />
-  <ProgressItem :workflow-state="collectionState" :order-i-d="store.orderId" />
-  <ProgressItem :workflow-state="deliveryState" :order-i-d="store.orderId" />
+  <ProgressItem
+    class="animate"
+    v-if="(preparationState as WorkflowState).isVisible"
+    :state="(preparationState as WorkflowState)"
+  />
+  <ProgressItem
+    class="animate"
+    v-if="(collectionState as WorkflowState).isVisible"
+    :state="(collectionState as WorkflowState)"
+  />
+  <ProgressItem
+    class="animate"
+    v-if="(deliveryState as WorkflowState).isVisible"
+    :state="(deliveryState as WorkflowState)"
+  />
+  <ProgressItem
+    class="animate"
+    v-if="(deliveredState as WorkflowState).isVisible"
+    :state="(deliveredState as WorkflowState)"
+  />
 </template>
+
+<style scoped>
+.animate {
+  animation-duration: 0.5s;
+  animation-name: animate-fade;
+  animation-delay: 0.5s;
+  animation-fill-mode: backwards;
+}
+
+@keyframes animate-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>

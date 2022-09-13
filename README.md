@@ -1,62 +1,111 @@
-# Serverless workflow visualizer
+# Serverless Pizza Workflow Visualizer
 
-This repo contains a web application that visualizes the progress of a business process that has been implemented with serverless functions.
+A pizza-themed visualization of a serverless back-end process that uses pubsub to display the progress in realtime.
 
----
 
-// This is a template repository to be used for all Ably Labs demos, tools &amp; proof of concepts. Follow these steps to so this repo is easy to use for visitors & maintainers.
-
-1. Update the description of this repo.
-2. Add [topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics) to this repo to clarify the language, tech stack and use case.
-3. Update the [.gitignore](.gitignore) file with one of the [standard templates from GitHub](https://github.com/github/gitignore).
-
-6. Update this README so it provides enough information for people to understand how it works, how to run it locally and how it can be deployed to the cloud (see [GitHub](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)).
-7. Update the query string in the static asset link:
-  - For the logo at the bottom of this README and
-  - Please use a custom `favicon` if you're creating a web app. The favicon should use the ably static asset endpoint `<link rel="icon" type="image/svg+xml" href="https://static.ably.dev/motif-red.svg?lorem-ipsum" />` and ensure this uses the same unique identifier as the Ably logo on the README.
-  - More info in [this repo](https://github.com/ably-labs/static-assets).
-8. Add a GitHub workflow to build/test/deploy your application. Use the [Ably Control API GitHub action](https://github.com/ably-labs/ably-control-api-action) to avoid creating Ably apps/API keys manually (see the `create-infra.yml` workflow in this repo).
-9. Add this repository to the [selected repositories in the Ably Labs org](https://github.com/organizations/ably-labs/settings/actions) that are allowed to run GitHub Actions.
-
-Once you're done, remove this section from the README. Good luck! 💪
-
----
-
-![Place eye candy header image here](https://placekitten.com/640/360)
-
-*// Place eye candy header image here ⬆️*
+![Serverless Pizza Workflow Visualizer Web App](/media/app.png)
 
 ## Description
 
-// Explanation of the contents of the repository. Describe the use case.
+This repo contains a web application that visualizes the progress of a business process that has been implemented with serverless functions.
 
 ## Tech stack
 
-![A high level architecture diagram tells more than a 1000 words](https://placekitten.com/480/240)
-
-*// A high level architecture diagram tells more than a 1000 words ⬆️*
+```mermaid
+flowchart LR
+  A[Website]
+  B[Auth Function App]
+  C[Workflow Function App]
+  D[Ably]
+  A --Get Ably token--> B
+  A --Place Order--> B
+  B --Start workflow--> C
+  C --Publish messages--> D
+  D --> A
+```
 
 The project uses the following components:
 
-- [X](), brief explanation of the component
-- [Y](), brief explanation of the component
-- [Ably](https://ably.com/), for realtime messaging at scale.
+- [Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-overview), the serverless compute service in Azure.
+- [Durable Functions](https://docs.microsoft.com/azure/azure-functions/durable/), an extension for Azure Functions that allows writing workflows as code and enables stateful functions.
+- [Vue3](https://vuejs.org/), the frontend framework.
+- [Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/overview), the hosting solution in the cloud.
+- [Ably](https://ably.com/), the pubsub service for realtime messaging at scale.
 
-## Building & running locally
+This diagram show the various functions and their interactions:
 
-### Prerequisites
+```mermaid
+flowchart RL
+  subgraph SWA Functions
+    A[Place Order]  
+    E[Get Ably token]
+  end
+  C[Website]
+  F[Starter]
+  B[Orchestrator]
+  B1[Order received]
+  B2[Sending instructions]
+  B3[Preparing pizza]
+  B4[Collecting order]
+  B5[Delivering order]
+  B6[Order delivered]
+  D[Ably]
+  C --> A
+  C --> E
+  E --> D
+  subgraph Durable Functions
+    A --> F
+    F --> B
+    direction LR
+    B --> B1
+    B --> B2
+    B --> B3
+    B --> B4
+    B --> B5
+    B --> B6
+  end
+  B1 --> D
+  B2 --> D
+  B3 --> D
+  B4 --> D
+  B5 --> D
+  B6 --> D
+  D --> C
+```
 
-1. [Sign up](https://ably.com/signup) or [log in](https://ably.com/login) to ably.com, and [create a new app and copy the API key](https://faqs.ably.com/setting-up-and-managing-api-keys).
-2. Install X
-3. Install Y
+## Running locally
 
-### Building the project
+You require the following dependencies:
 
-// Add step by step instructions for building & running locally.
+- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0). The .NET SDK required for the C# Azure Functions.
+- [Node 16](https://nodejs.org/en/). The JavaScript runtime required for the Vue front-end.
+- [Azure Functions Core Tools](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash). This is part of the Azure Functions extensions for VSCode that should be recommended for automatic installation when this repo is opened in VSCode.
+- [Azurite](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite). This is an local storage emulator that is required for Entity Functions. When this repo is opened in VSCode a message will appear to install this extension.
+- [Azure Static Web Apps CLI](https://github.com/Azure/static-web-apps-cli). Install this tool globally by running this command in the terminal: `npm install -g @azure/static-web-apps-cli`.
+- A free Ably Account, [sign up](https://ably.com/signup) or [log in](https://ably.com/login) to ably.com, and [create a new app and copy the API key](https://faqs.ably.com/setting-up-and-managing-api-keys).
+- Optional: The [Ably VSCode extension](https://marketplace.visualstudio.com/items?itemName=ably-labs.vscode-ably) to have easy access to the API keys of your Ably app.
 
-## Deploying to the cloud
+There are two components in this solution that run independently from each other:
 
-// Add step by step instructions for deployment. Refer to the GitHub workflow where possible.
+1. The back-end that runs the Durable Functions workflow (`PizzaWorkflow.csproj`).
+2. The Static Web App that contains the front-end (a Vue3 project) and a function app (`Auth.csproj`).
+
+In order to run and test the solution locally first start the PizzaWorkflow project, then the Static Web Apps project.
+
+### Steps to run the PizzaWorkflow Function App
+
+1. Run `dotnet restore` in the `api/PizzaWorkflow` folder to install the dependencies.
+2. Rename the `api/PizzaWorkflow/local.settings.json.example` file to `api/PizzaWorkflow/local.settings.json`.
+3. Copy/paste the Ably API key in the `ABLY_API_KEY` field in the `local.settings.json` file.
+4. Start Azurite (VSCode: `CTRL+SHIFT+P -> Azurite: Start`).
+5. Start the PizzaWorkflow function app by either pressing `F5` or running `func start` in the `api/PizzaWorkflow/` folder.
+
+### Steps to run the Static Web Apps locally
+
+1. Run `npm install` in the root folder to install the dependencies.
+2. Rename the `api/Auth/local.settings.json.example` file to `api/Auth/local.settings.json`.
+3. Copy/paste the Ably API key in the `ABLY_API_KEY` field in the `local.settings.json` file.
+4. Run `swa start` in the root folder.
 
 ## Contributing
 
@@ -64,7 +113,9 @@ Want to help contributing to this project? Have a look at our [contributing guid
 
 ## More info
 
-- [Join our Discord server](https://discord.gg/q89gDHZcBK)
+For more questions or comments, please contact me on our [Ably Discord](http://go.ably.com/discord) or reach out on [Twitter](https://twitter.com/marcduiker).
+
+- [Join our Discord server](http://go.ably.com/discord)
 - [Follow us on Twitter](https://twitter.com/ablyrealtime)
 - [Use our SDKs](https://github.com/ably/)
 - [Visit our website](https://ably.com)

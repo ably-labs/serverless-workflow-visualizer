@@ -5,6 +5,7 @@ using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using IO.Ably;
 using PizzaWorkflow.Models;
+using System.Threading;
 
 namespace PizzaWorkflow.Activities
 {
@@ -20,7 +21,8 @@ namespace PizzaWorkflow.Activities
             ILogger logger)
         {
             logger.LogInformation($"Handing over order {order.Id} to delivery.");
-            await base.PublishAsync(order.Id, "deliver-order", order);
+            Thread.Sleep(new Random().Next(3000, 6000));
+            await base.PublishAsync(order.Id, "deliver-order", new WorkflowState(order.Id));
         }
     }
 }

@@ -17,10 +17,10 @@ import FlagIcon from "./icons/FlagIcon.vue";
           >
           (the star of our desserts ⭐)
         </li>
-        <li>
+        <!-- <li>
           <a href="https://ably.com/blog">Blog post</a>
           (our most read menu item 📖)
-        </li>
+        </li> -->
         <li>
           <a href="https://www.youtube.com/c/AblyRealtime">YouTube</a>
           (please eat with your thumbs up 👍)

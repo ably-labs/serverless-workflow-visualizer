@@ -11,18 +11,7 @@ This repo contains a web application that visualizes the progress of a business 
 
 ## Tech stack
 
-```mermaid
-flowchart LR
-  A[Website]
-  B[Auth Function App]
-  C[Workflow Function App]
-  D[Ably]
-  A --Get Ably token--> B
-  A --Place Order--> B
-  B --Start workflow--> C
-  C --Publish messages--> D
-  D --> A
-```
+![Component diagram](/media/diagram1.png)
 
 The project uses the following components:
 

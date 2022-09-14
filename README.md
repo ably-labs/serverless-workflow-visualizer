@@ -12,6 +12,7 @@ This repo contains a web application that visualizes the progress of a business 
 ## Tech stack
 
 ![Component diagram](/media/diagram1.png)
+*High-level component view of the solution.*
 
 The project uses the following components:
 
@@ -23,44 +24,8 @@ The project uses the following components:
 
 This diagram show the various functions and their interactions:
 
-```mermaid
-flowchart RL
-  subgraph SWA Functions
-    A[Place Order]  
-    E[Get Ably token]
-  end
-  C[Website]
-  F[Starter]
-  B[Orchestrator]
-  B1[Order received]
-  B2[Sending instructions]
-  B3[Preparing pizza]
-  B4[Collecting order]
-  B5[Delivering order]
-  B6[Order delivered]
-  D[Ably]
-  C --> A
-  C --> E
-  E --> D
-  subgraph Durable Functions
-    A --> F
-    F --> B
-    direction LR
-    B --> B1
-    B --> B2
-    B --> B3
-    B --> B4
-    B --> B5
-    B --> B6
-  end
-  B1 --> D
-  B2 --> D
-  B3 --> D
-  B4 --> D
-  B5 --> D
-  B6 --> D
-  D --> C
-```
+![Application flow](/media/diagram2.png)
+*The Auth and PizzaWorkflow Apps showing the application flow.*
 
 ## Running locally
 

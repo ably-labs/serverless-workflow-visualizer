@@ -1,11 +1,16 @@
-namespace Ably.PizzaProcess.Models
+using Newtonsoft.Json;
+
+namespace PizzaWorkflow.Models
 {
     public class Instructions
     {
-        public string  OrderId { get; set; }
-        public string RestaurantId { get; set; }
+        [JsonProperty("orderId")]
+        public string OrderId { get; set; }
+        [JsonProperty("menuItem")]
         public MenuItem MenuItem { get; set; }
+        [JsonProperty("bakingTimeMinutes")]
         public int BakingTimeMinutes { get; set; }
+        [JsonProperty("bakingTemperatureCelsius")]
         public int BakingTemperatureCelsius { get; set; }
     }
 }

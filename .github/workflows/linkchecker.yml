@@ -5,6 +5,9 @@ on:
     - cron: "0 5 * * *"
   pull_request:
     types: [opened, edited, synchronize, reopened]
+    paths:
+      - '*.md'
+      - '*.html'
   workflow_dispatch:
 
 permissions:

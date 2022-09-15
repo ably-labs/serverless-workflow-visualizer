@@ -4,17 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using IO.Ably;
-using Ably.PizzaProcess.Models;
+using PizzaWorkflow.Models;
 
-namespace Ably.PizzaProcess.Activities
+namespace PizzaWorkflow.Activities
 {
-    public class ReceiveOrder
+    public class ReceiveOrder : MessagingBase
     {
-        private readonly IRestClient _ablyClient;
-
-        public ReceiveOrder(IRestClient ablyClient)
+        public ReceiveOrder(IRestClient ablyClient) : base(ablyClient)
         {
-            _ablyClient = ablyClient;
         }
 
         [FunctionName(nameof(ReceiveOrder))]
@@ -31,13 +28,11 @@ namespace Ably.PizzaProcess.Activities
                         BakingTimeMinutes = bakingInstructions.timeInMinutes,
                         BakingTemperatureCelsius = bakingInstructions.temperatureInCelsius,
                         MenuItem = menuItem,
-                        OrderId = order.Id,
-                        RestaurantId = order.RestaurantId
+                        OrderId = order.Id
                     });
             }
 
-            var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_PREFIX"));
-            await channel.PublishAsync("receive-order", order);
+            await base.PublishAsync(order.Id, "receive-order", new WorkflowState(order.Id));
 
             return instructions;
         }
@@ -48,7 +43,7 @@ namespace Ably.PizzaProcess.Activities
             {
                 var random = new Random();
                 return (random.Next(10, 20), random.Next(180, 220));
-            } 
+            }
             else
             {
                 return (0, 0);

@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-using Ably.PizzaProcess.Orchestrators;
-using Ably.PizzaProcess.Models;
+using PizzaWorkflow.Orchestrators;
+using PizzaWorkflow.Models;
 
-namespace Ably.PizzaProcess.Clients
+namespace PizzaWorkflow.Clients
 {
     public static class StartWorkflow
     {
@@ -17,13 +17,14 @@ namespace Ably.PizzaProcess.Clients
         {
             if (order.MenuItems != null)
             {
-                var id = await durableClient.StartNewAsync(
+                var orchestrationId = await durableClient.StartNewAsync(
                     nameof(PizzaWorkflowOrchestrator),
+                    order.Id,
                     order);
 
-                return new OkObjectResult($"Start processing order {id}.");
-            } 
-            else 
+                return new OkObjectResult(orchestrationId);
+            }
+            else
             {
                 return new BadRequestObjectResult("Please provide menuItems in the request.");
             }

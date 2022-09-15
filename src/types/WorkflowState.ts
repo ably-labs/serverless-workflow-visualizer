@@ -1,6 +1,11 @@
 export type WorkflowState = {
   title: string;
-  orderID: string;
+  orderId: string;
   image: string;
+  isVisible: boolean;
   isDisabled: boolean;
-}
+  isCurrentState: boolean;
+  messageSentTimeStampUTC: number;
+  messageReceivedTimestamp: number;
+  messageDeliveredTimestamp: number;
+};

@@ -1,8 +1,9 @@
 {
-    "azureFunctions.deploySubpath": "api/Auth/bin/Release/net6.0/publish",
-    "azureFunctions.projectLanguage": "C#",
-    "azureFunctions.projectRuntime": "~4",
-    "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.preDeployTask": "publish (functions)",
-    "azureFunctions.projectSubpath": "api\\PizzaWorkflow"
+  "azureFunctions.deploySubpath": "api/PizzaWorkflow/bin/Release/net6.0/publish",
+  "azureFunctions.projectLanguage": "C#",
+  "azureFunctions.projectRuntime": "~4",
+  "debug.internalConsoleOptions": "neverOpen",
+  "azureFunctions.preDeployTask": "publish (Workflow functions)",
+  "azureFunctions.projectSubpath": "api\\PizzaWorkflow",
+  "editor.formatOnSave": true
 }

@@ -1,0 +1,7 @@
+// Instructions: https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-github-actions?tabs=userlevel%2CCLI
+
+az group create --name "serverless-workflow-visualizer-rg" --location westeurope --tags "owner=Marc Duiker"
+
+az group list
+
+az ad sp create-for-rbac --name "pizza-workflow" --role contributor --scopes "<RESOURCE ID OF THE CREATED RESOURCE GROUP>" --sdk-auth

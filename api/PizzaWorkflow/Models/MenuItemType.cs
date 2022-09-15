@@ -1,4 +1,4 @@
-namespace Ably.PizzaProcess.Models
+namespace PizzaWorkflow.Models
 {
     public enum MenuItemType
     {

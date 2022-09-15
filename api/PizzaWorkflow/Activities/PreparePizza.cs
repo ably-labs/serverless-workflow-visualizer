@@ -1,20 +1,18 @@
-using System;
 using System.Threading.Tasks;
-using Ably.PizzaProcess.Models;
-using IO.Ably;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
+using IO.Ably;
+using PizzaWorkflow.Models;
+using System.Threading;
+using System;
 
-namespace Ably.PizzaProcess.Activities
+namespace PizzaWorkflow.Activities
 {
-    public class PreparePizza
+    public class PreparePizza : MessagingBase
     {
-        private readonly IRestClient _ablyClient;
-
-        public PreparePizza(IRestClient ablyClient)
+        public PreparePizza(IRestClient ablyClient) : base(ablyClient)
         {
-            _ablyClient = ablyClient;
         }
 
         [FunctionName(nameof(PreparePizza))]
@@ -23,8 +21,8 @@ namespace Ably.PizzaProcess.Activities
             ILogger logger)
         {
             logger.LogInformation($"Preparing {instructions.MenuItem.Name}.");
-            var channel = _ablyClient.Channels.Get(Environment.GetEnvironmentVariable("ABLY_CHANNEL_PREFIX"));
-            await channel.PublishAsync("prepare-pizza", instructions);
+            Thread.Sleep(new Random().Next(5000, 10000));
+            await base.PublishAsync(instructions.OrderId, "prepare-pizza", new WorkflowState(instructions.OrderId));
         }
     }
 }

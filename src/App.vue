@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
 import IntroItem from "./components/IntroItem.vue";
 import DessertMenu from "./components/DessertMenu.vue";
+import PizzaProcess from "./components/PizzaProcess.vue";
 </script>
 
 <template>
@@ -12,7 +12,9 @@ import DessertMenu from "./components/DessertMenu.vue";
     </div>
   </header>
 
-  <RouterView />
+  <main>
+    <PizzaProcess />
+  </main>
 </template>
 
 <style scoped>

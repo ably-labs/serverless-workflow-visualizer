@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Ably.PizzaProcess.Models
+namespace PizzaWorkflow.Models
 {
     public class MenuItem
     {

@@ -9,20 +9,20 @@ using System.Threading;
 
 namespace PizzaWorkflow.Activities
 {
-    public class DeliverOrder : MessagingBase
+    public class DeliveredOrder : MessagingBase
     {
-        public DeliverOrder(IRestClient ablyClient) : base(ablyClient)
+        public DeliveredOrder(IRestClient ablyClient) : base(ablyClient)
         {
         }
 
-        [FunctionName(nameof(DeliverOrder))]
+        [FunctionName(nameof(DeliveredOrder))]
         public async Task Run(
             [ActivityTrigger] Order order,
             ILogger logger)
         {
-            logger.LogInformation($"Handing over order {order.Id} to delivery.");
+            logger.LogInformation($"Delivered {order.Id}.");
             Thread.Sleep(new Random().Next(3000, 6000));
-            await base.PublishAsync(order.Id, "deliver-order", new WorkflowState(order.Id));
+            await base.PublishAsync(order.Id, "delivered-order", new WorkflowState(order.Id));
         }
     }
 }

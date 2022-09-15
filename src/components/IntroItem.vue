@@ -68,10 +68,12 @@ function getRandomID() {
           </a>
           . The <code>PizzaWorkflowOrchestrator</code> function calls 6 activity
           functions in sequence. Each of these functions publishes a message via
-          <a href="https://ably.com/docs/quick-start-guide">Ably</a> which is
-          received by this website so you can see how far the workflow has
-          progressed in real-time. Hover the over the images to see how quick
-          the messages are being published.
+          <a
+            href="https://ably.com/docs/quick-start-guide?utm_source=pizza&utm_medium=ably-dev&utm_campaign=serverless-workflow-visualizer"
+            >Ably</a
+          >
+          , which is received by this website, so you can see how far the
+          workflow has progressed in real-time.
         </p>
       </details>
     </div>
@@ -79,6 +81,8 @@ function getRandomID() {
 </template>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap");
+
 h1 {
   font-weight: bold;
   font-size: 2.6rem;
@@ -100,7 +104,7 @@ button {
   padding: 0.7rem;
   font-size: 1.2rem;
   margin-top: 1rem;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: "Comic Sans MS", "Comic Neue", cursive;
   transition: all 0.4s ease-out;
 }
 

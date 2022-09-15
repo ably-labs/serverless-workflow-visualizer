@@ -7,13 +7,6 @@ on:
     paths:
       - 'api/PizzaWorkflow/*'
       - '.github/workflows/pizzaworkflow.yml'
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
-    paths:
-      - 'api/PizzaWorkflow/*'
-      - '.github/workflows/pizzaworkflow.yml'
   workflow_dispatch:
 
 env:
@@ -24,6 +17,7 @@ env:
 
 jobs:
   deploy_pizza_workflow_app:
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     name: Build and Deploy Function App
     steps:

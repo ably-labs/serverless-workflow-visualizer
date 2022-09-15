@@ -13,6 +13,7 @@ env:
 
 jobs:
   create_infra:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     name: Create Function App Resources
     steps:

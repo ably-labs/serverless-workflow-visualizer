@@ -6,14 +6,14 @@ on:
       - main
     paths:
       - '.github/workflows/azure-static-web-apps-green-plant-089c7c403.yml'
-      - 'src/*'
+      - 'src/**'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
     paths:
       - '.github/workflows/azure-static-web-apps-green-plant-089c7c403.yml'
-      - 'src/*'
+      - 'src/**'
   workflow_dispatch:
 
 env:

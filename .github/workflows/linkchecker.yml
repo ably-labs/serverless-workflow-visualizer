@@ -6,8 +6,8 @@ on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
     paths:
-      - '*.md'
-      - '*.html'
+      - '**.md'
+      - '**.html'
   workflow_dispatch:
 
 permissions:

@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'api/PizzaWorkflow/*'
+      - 'api/PizzaWorkflow/**'
       - '.github/workflows/pizzaworkflow.yml'
   workflow_dispatch:
 

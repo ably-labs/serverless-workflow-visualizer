@@ -29,7 +29,7 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       title: "Order Received",
       orderId: "",
       image: OrderImage,
-      isVisible: true,
+      isVisible: false,
       isDisabled: true,
       isCurrentState: false,
     },
@@ -95,6 +95,7 @@ export const pizzaProcessStore = defineStore("pizza-process", {
       this.$state.clientId = clientId;
       this.$state.orderId = order.id;
       this.$state.disableOrdering = true;
+      this.$state.orderReceivedState.isVisible = true;
       await this.createRealtimeConnection(clientId, order);
     },
     async createRealtimeConnection(clientId: string, order: Order) {

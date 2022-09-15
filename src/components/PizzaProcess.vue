@@ -18,6 +18,7 @@ const {
 <template>
   <ProgressItem
     class="animate"
+    v-if="(orderReceivedState as WorkflowState).isVisible"
     :state="(orderReceivedState as WorkflowState)"
   />
   <ProgressItem

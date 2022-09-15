@@ -4,18 +4,16 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - '*.md'
-      - '.github/workflows/pizzaworkflow.yml'
-      - 'src/PizzaWorkflow/*'
+    paths:
+      - '.github/workflows/azure-static-web-apps-green-plant-089c7c403.yml'
+      - 'src/*'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
-    paths-ignore:
-      - '*.md'
-      - '.github/workflows/pizzaworkflow.yml'
-      - 'src/PizzaWorkflow/*'
+    paths:
+      - '.github/workflows/azure-static-web-apps-green-plant-089c7c403.yml'
+      - 'src/*'
 
 env:
   FUNCTION_APP_NAME: 'pizza-workflow-fa'

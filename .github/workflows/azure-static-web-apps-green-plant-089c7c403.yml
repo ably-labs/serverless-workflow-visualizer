@@ -14,6 +14,7 @@ on:
     paths:
       - '.github/workflows/azure-static-web-apps-green-plant-089c7c403.yml'
       - 'src/*'
+  workflow_dispatch:
 
 env:
   FUNCTION_APP_NAME: 'pizza-workflow-fa'

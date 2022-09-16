@@ -32,9 +32,9 @@ This diagram show the various functions and their interactions:
 You require the following dependencies:
 
 - [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0). The .NET SDK required for the C# Azure Functions.
-- [Node 16](https://nodejs.org/en/). The JavaScript runtime required for the Vue front-end.
+- [Node 16](https://nodejs.org/en/). The JavaScript runtime required for the Vue front-end and installing the Static Web Apps CLI.
 - [Azure Functions Core Tools](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash). This is part of the Azure Functions extensions for VSCode that should be recommended for automatic installation when this repo is opened in VSCode.
-- [Azurite](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite). This is an local storage emulator that is required for Entity Functions. When this repo is opened in VSCode a message will appear to install this extension.
+- [Azurite](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite). This is an local storage emulator that is required for Durable Functions. When this repo is opened in VSCode a message will appear to install this extension.
 - [Azure Static Web Apps CLI](https://github.com/Azure/static-web-apps-cli). Install this tool globally by running this command in the terminal: `npm install -g @azure/static-web-apps-cli`.
 - A free Ably Account, [sign up](https://ably.com/signup) or [log in](https://ably.com/login) to ably.com, and [create a new app and copy the API key](https://faqs.ably.com/setting-up-and-managing-api-keys).
 - Optional: The [Ably VSCode extension](https://marketplace.visualstudio.com/items?itemName=ably-labs.vscode-ably) to have easy access to the API keys of your Ably app.
@@ -60,6 +60,8 @@ In order to run and test the solution locally first start the PizzaWorkflow proj
 2. Rename the `api/Auth/local.settings.json.example` file to `api/Auth/local.settings.json`.
 3. Copy/paste the Ably API key in the `ABLY_API_KEY` field in the `local.settings.json` file.
 4. Run `swa start` in the root folder.
+
+Now, browse to `http://localhost:4280` and click the *Place Order* button to start the workflow.
 
 ## Contributing
 

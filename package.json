@@ -14,7 +14,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "ably": "^1.2.29",
+    "ably": "^1.2.30",
     "pinia": "^2.0.23",
     "uuid": "^9.0.0",
     "vue": "^3.2.40",

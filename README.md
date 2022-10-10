@@ -1,13 +1,12 @@
 # Serverless Pizza Workflow Visualizer
 
-A pizza-themed visualization of a serverless back-end process that uses pubsub to display the progress in realtime.
+A pizza-themed visualization of an Azure serverless back-end process that uses pubsub to display the progress in realtime.
 
-
-![Serverless Pizza Workflow Visualizer Web App](/media/app.png)
+![Serverless Pizza Workflow Visualizer Web App](/media/pizza-workflow.gif)
 
 ## Description
 
-This repo contains a web application that visualizes the progress of a business process that has been implemented with serverless functions.
+This repo contains a web application that visualizes the progress of a business process that has been implemented with Azure Functions & Durable Functions.
 
 ## Tech stack
 
@@ -20,7 +19,7 @@ The project uses the following components:
 - [Durable Functions](https://docs.microsoft.com/azure/azure-functions/durable/), an extension for Azure Functions that allows writing workflows as code and enables stateful functions.
 - [Vue3](https://vuejs.org/), the frontend framework.
 - [Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/overview), the hosting solution in the cloud.
-- [Ably](https://ably.com/), the pubsub service for realtime messaging at scale.
+- [Ably](https://ably.com/?utm_source=github&utm_medium=repo&utm_campaign=GLB-2210-pizza&utm_content=serverless-workflow-visualizer&src=GLB-2210-pizza), a serverless pubsub service for realtime messaging at scale.
 
 This diagram show the various functions and their interactions:
 
@@ -36,7 +35,7 @@ You require the following dependencies:
 - [Azure Functions Core Tools](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash). This is part of the Azure Functions extensions for VSCode that should be recommended for automatic installation when this repo is opened in VSCode.
 - [Azurite](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite). This is an local storage emulator that is required for Durable Functions. When this repo is opened in VSCode a message will appear to install this extension.
 - [Azure Static Web Apps CLI](https://github.com/Azure/static-web-apps-cli). Install this tool globally by running this command in the terminal: `npm install -g @azure/static-web-apps-cli`.
-- A free Ably Account, [sign up](https://ably.com/signup) or [log in](https://ably.com/login) to ably.com, and [create a new app and copy the API key](https://faqs.ably.com/setting-up-and-managing-api-keys).
+- A free Ably Account, [sign up](https://ably.com/signup?utm_source=github&utm_medium=repo&utm_campaign=GLB-2210-pizza&utm_content=serverless-workflow-visualizer&src=GLB-2210-pizza) or [log in](https://ably.com/login?utm_source=github&utm_medium=repo&utm_campaign=GLB-2210-pizza&utm_content=serverless-workflow-visualizer&src=GLB-2210-pizza) to ably.com, and [create a new app and copy the API key](https://faqs.ably.com/setting-up-and-managing-api-keys?utm_source=github&utm_medium=repo&utm_campaign=GLB-2210-pizza&utm_content=serverless-workflow-visualizer&src=GLB-2210-pizza).
 - Optional: The [Ably VSCode extension](https://marketplace.visualstudio.com/items?itemName=ably-labs.vscode-ably) to have easy access to the API keys of your Ably app.
 
 There are two components in this solution that run independently from each other:
@@ -74,7 +73,7 @@ For more questions or comments, please contact me on our [Ably Discord](http://g
 - [Join our Discord server](http://go.ably.com/discord)
 - [Follow us on Twitter](https://twitter.com/ablyrealtime)
 - [Use our SDKs](https://github.com/ably/)
-- [Visit our website](https://ably.com)
+- [Visit our website](https://ably.com?utm_source=github&utm_medium=repo&utm_campaign=GLB-2210-pizza&utm_content=serverless-workflow-visualizer&src=GLB-2210-pizza)
 
 ---
-[![Ably logo](https://static.ably.dev/badge-black.svg?serverless-workflow-visualizer)](https://ably.com)
+[![Ably logo](https://static.ably.dev/badge-black.svg?serverless-workflow-visualizer)](https://ably.com?utm_source=github&utm_medium=repo&utm_campaign=GLB-2210-pizza&utm_content=serverless-workflow-visualizer&src=GLB-2210-pizza)

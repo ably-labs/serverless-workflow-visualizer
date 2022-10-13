@@ -18,9 +18,11 @@ import FlagIcon from "./icons/FlagIcon.vue";
           (the star of our desserts ⭐)
         </li>
         <li>
-          Blog post (the chef is still working on this ✍️)
-          <!-- <a href="https://ably.com/blog">Blog post</a>
-          (our most read menu item 📖) -->
+          <a
+            href="https://ably.com/blog/visualize-azure-serverless-workflow-progress-in-realtime-with-pubsub?utm_campaign=GLB-2210-serverless-workflow-visualizer&utm_content=demo-serverless-workflow-visualizer&utm_source=ably-dev&utm_medium=demo&src=GLB-2210-serverless-workflow-visualizer-demo"
+            >Blog post</a
+          >
+          (our most read menu item 📖)
         </li>
         <li>
           <a href="https://www.youtube.com/c/AblyRealtime">YouTube</a>

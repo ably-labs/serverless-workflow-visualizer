@@ -4,7 +4,7 @@
   "steps": [
     {
       "title": "Introduction",
-      "description": "## Introduction\r\n\r\nThis repo contains a web application that visualizes the progress of a business process that has been implemented with Azure Functions & Durable Functions.\r\n\r\n![Animation](./media/diagram1.png)"
+      "description": "## Introduction\r\n\r\nThis repo contains a web application that visualizes the progress in realtime of a business process that has been implemented with Azure Functions & Durable Functions.\r\n\r\n![Animation](./media/diagram1.png)"
     },
     {
       "directory": "api",
@@ -42,6 +42,101 @@
           "character": 55
         }
       }
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/ReceiveOrder.cs",
+      "description": "### ReceiveOrder\r\n\r\nThe `ReceiveOrder` activity function converts the `Order` into a list of `Instructions` and returns these to the orchestrator function.",
+      "line": 17
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/SendInstructionsToKitchen.cs",
+      "description": "### SendInstructionsToKitchen\r\n\r\nThe `SendInstructionsToKitchen` activity function is responsible for sending the `Instructions` to the kitchen so the preparation can start.",
+      "line": 20
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/PreparePizza.cs",
+      "description": "### PreparePizza\r\n\r\nFor all the `MenuItems` of type `MenuItemType.Pizza` in the `Instructions` the `PreparePizza` activity function is called, to simulate that the pizza will be baked in the oven.",
+      "line": 18
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/CollectOrder.cs",
+      "description": "### CollectOrder\r\n\r\nThe `CollectOrder` activity function is called when all pizza preperations are complete.",
+      "line": 18
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/DeliverOrder.cs",
+      "description": "### DeliverOrder\r\n\r\nThe `DeliverOrder` activity function is called after the `CollectOrder` and indicates the order is about to be delivered.",
+      "line": 18
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/DeliveredOrder.cs",
+      "description": "### DeliveredOrder\r\n\r\nThe `DeliveredOrder` activity function is called to indicate that the order has been delivered.",
+      "line": 18
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/MessagingBase.cs",
+      "description": "### MessagingBase\r\n\r\nAll activity functions inherit from `MessagingBase` in order to publish their progress update to Ably.",
+      "line": 11,
+      "selection": {
+        "start": {
+          "line": 11,
+          "character": 19
+        },
+        "end": {
+          "line": 11,
+          "character": 32
+        }
+      }
+    },
+    {
+      "file": "api/PizzaWorkflow/StartUp.cs",
+      "description": "### StartUp\r\n\r\nThe `StartUp` class contains the DI registration for the `IRestClient`, the Ably REST client. ",
+      "line": 10
+    },
+    {
+      "file": "src/stores/index.ts",
+      "description": "### Pinia store\r\n\r\nPinia is used as the local front-end store.",
+      "line": 15
+    },
+    {
+      "file": "src/types/PizzaWorkflow.ts",
+      "description": "### PizzaWorkflow type\r\n\r\nThe `PizzaWorkflow` is a custom type that captures the local state.",
+      "line": 4
+    },
+    {
+      "file": "src/stores/index.ts",
+      "description": "### Start & CreateRealtimeConnection",
+      "line": 93
+    },
+    {
+      "file": "src/stores/index.ts",
+      "description": "### SubscribeToMessages",
+      "line": 161
+    },
+    {
+      "file": "src/stores/index.ts",
+      "description": "### HandleOrderReceived",
+      "line": 200,
+      "selection": {
+        "start": {
+          "line": 200,
+          "character": 5
+        },
+        "end": {
+          "line": 200,
+          "character": 24
+        }
+      }
+    },
+    {
+      "file": "src/components/PizzaProcess.vue",
+      "description": "### PizzaProcess component",
+      "line": 1
+    },
+    {
+      "file": "src/components/ProgressItem.vue",
+      "description": "### ProgressItem component",
+      "line": 1
     }
   ]
 }

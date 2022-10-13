@@ -1,0 +1,142 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "WorkflowVisualizer",
+  "steps": [
+    {
+      "title": "Introduction",
+      "description": "## Introduction\r\n\r\nThis repo contains a web application that visualizes the progress in realtime of a business process that has been implemented with Azure Functions & Durable Functions.\r\n\r\n![Animation](./media/diagram1.png)"
+    },
+    {
+      "directory": "api",
+      "description": "### api folder\r\n\r\nThe `api` folder contains two Function App projects:\r\n\r\n- Auth\r\n- PizzaWorkflow\r\n\r\n![Function Apps](./media/diagram2.png)"
+    },
+    {
+      "directory": "api/Auth",
+      "description": "### Auth function app\r\n\r\nThe `Auth` function app is a .NET 6 in process function app that contains two functions:\r\n\r\n- CreateTokenRequest; this function is called by the front-end to obtain an Ably authentication token.\r\n- PlaceOrder; this function is called by the front-end to post a new order to the PizzWorkflow back-end.\r\n\r\nThis function app project is part of Azure Static Web Apps."
+    },
+    {
+      "directory": "api/PizzaWorkflow",
+      "description": "### PizzaWorkflow\r\n\r\nThe `PizzaWorkflow` function app is a .NET 6 in process function app that contains the serverless workflow. It contains the following functions:\r\n\r\n- StartWorkflow (client function)\r\n- PizzaWorkflowOrchestrator (orchestrator function)\r\n- ReceiveOrder (activity function)\r\n- SendInstructionsToKitchen (activity function)\r\n- PreparePizza (activity function)\r\n- CollectOrder (activity function)\r\n- DeliverOrder (activity function)\r\n- DeliveredOrder (activity function)\r\n\r\nThis project is deployed to a seperate function app outside Azure Static Web Apps."
+    },
+    {
+      "file": "api/Auth/PlaceOrder.cs",
+      "description": "### PlaceOrder\r\n\r\nThe `PlaceOrder` function is called when the _Place Order_ button is clicked in the front-end. This function is responsible for making a request to the `PizzaWorkflow` function app.",
+      "line": 19
+    },
+    {
+      "file": "api/PizzaWorkflow/Clients/StartWorkflow.cs",
+      "description": "### StartWorkflow\r\n\r\nThe `StartWorkflow` function is responsible for creating a new instance of the `PizzaWorkflowOrchestrator` function.",
+      "line": 13
+    },
+    {
+      "file": "api/PizzaWorkflow/Orchestrators/PizzaWorkflowOrchestrator.cs",
+      "description": "### PizzaWorkflowOrchestrator\r\n\r\nThe `PizzaWorkflowOrchestrator` is an orchestrator function and chains together the activity functions.",
+      "line": 13,
+      "selection": {
+        "start": {
+          "line": 13,
+          "character": 30
+        },
+        "end": {
+          "line": 13,
+          "character": 55
+        }
+      }
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/ReceiveOrder.cs",
+      "description": "### ReceiveOrder\r\n\r\nThe `ReceiveOrder` activity function converts the `Order` into a list of `Instructions` and returns these to the orchestrator function.",
+      "line": 17
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/SendInstructionsToKitchen.cs",
+      "description": "### SendInstructionsToKitchen\r\n\r\nThe `SendInstructionsToKitchen` activity function is responsible for sending the `Instructions` to the kitchen so the preparation can start.",
+      "line": 20
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/PreparePizza.cs",
+      "description": "### PreparePizza\r\n\r\nFor all the `MenuItems` of type `MenuItemType.Pizza` in the `Instructions` the `PreparePizza` activity function is called, to simulate that the pizza will be baked in the oven.",
+      "line": 18
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/CollectOrder.cs",
+      "description": "### CollectOrder\r\n\r\nThe `CollectOrder` activity function is called when all pizza preperations are complete.",
+      "line": 18
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/DeliverOrder.cs",
+      "description": "### DeliverOrder\r\n\r\nThe `DeliverOrder` activity function is called after the `CollectOrder` and indicates the order is about to be delivered.",
+      "line": 18
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/DeliveredOrder.cs",
+      "description": "### DeliveredOrder\r\n\r\nThe `DeliveredOrder` activity function is called to indicate that the order has been delivered.",
+      "line": 18
+    },
+    {
+      "file": "api/PizzaWorkflow/Activities/MessagingBase.cs",
+      "description": "### MessagingBase\r\n\r\nAll activity functions inherit from `MessagingBase` in order to publish their progress update to Ably.",
+      "line": 11,
+      "selection": {
+        "start": {
+          "line": 11,
+          "character": 19
+        },
+        "end": {
+          "line": 11,
+          "character": 32
+        }
+      }
+    },
+    {
+      "file": "api/PizzaWorkflow/StartUp.cs",
+      "description": "### StartUp\r\n\r\nThe `StartUp` class contains the DI registration for the `IRestClient`, the Ably REST client. ",
+      "line": 10
+    },
+    {
+      "file": "src/stores/index.ts",
+      "description": "### Pinia store\r\n\r\nPinia is used as the local front-end store.",
+      "line": 15
+    },
+    {
+      "file": "src/types/PizzaWorkflow.ts",
+      "description": "### PizzaWorkflow type\r\n\r\nThe `PizzaWorkflow` is a custom type that captures the local state.",
+      "line": 4
+    },
+    {
+      "file": "src/stores/index.ts",
+      "description": "### Start & CreateRealtimeConnection",
+      "line": 93
+    },
+    {
+      "file": "src/stores/index.ts",
+      "description": "### SubscribeToMessages",
+      "line": 161
+    },
+    {
+      "file": "src/stores/index.ts",
+      "description": "### HandleOrderReceived",
+      "line": 200,
+      "selection": {
+        "start": {
+          "line": 200,
+          "character": 5
+        },
+        "end": {
+          "line": 200,
+          "character": 24
+        }
+      }
+    },
+    {
+      "file": "src/components/PizzaProcess.vue",
+      "description": "### PizzaProcess component",
+      "line": 1
+    },
+    {
+      "file": "src/components/ProgressItem.vue",
+      "description": "### ProgressItem component",
+      "line": 1
+    }
+  ]
+}

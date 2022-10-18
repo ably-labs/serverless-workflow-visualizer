@@ -25,7 +25,7 @@ import FlagIcon from "./icons/FlagIcon.vue";
           (our most read menu item 📖)
         </li>
         <li>
-          <a href="https://www.youtube.com/c/AblyRealtime">YouTube</a>
+          <a href="https://youtu.be/y9-a_ewgWCQ">YouTube</a>
           (please eat with your thumbs up 👍)
         </li>
         <li>

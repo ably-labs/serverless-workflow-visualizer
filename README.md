@@ -7,6 +7,7 @@ A pizza-themed visualization of an Azure serverless back-end process that uses p
 ## Description
 
 This repo contains a web application that visualizes the progress of a business process that has been implemented with Azure Functions & Durable Functions.
+Read the full [blog post](https://ably.com/blog/visualize-azure-serverless-workflow-progress-in-realtime-with-pubsub?utm_content=demo-serverless-workflow-visualizer&utm_source=github&utm_medium=repo&src=GLB-2210-serverless-workflow-visualizer-repo) or watch the [YouTube video](https://youtu.be/y9-a_ewgWCQ) to learn more.
 
 ## Tech stack
 

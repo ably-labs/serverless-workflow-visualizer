@@ -54,7 +54,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Set SWA Settings
-        uses: azure/CLI@v1.0.6
+        uses: azure/CLI@v1.0.7
         with:
           inlineScript: |
             hostName=$(az functionapp show --name ${{ env.FUNCTION_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP_NAME }} --query "defaultHostName" -o tsv)

@@ -31,7 +31,7 @@ jobs:
             key-name: 'pub sub only'
             key-capabilities: 'publish, subscribe'
       - uses: actions/checkout@v3
-      - uses: azure/login@v1.4.6
+      - uses: azure/login@v1.4.7
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Setup .NET ${{ env.DOTNET_VERSION }} Environment

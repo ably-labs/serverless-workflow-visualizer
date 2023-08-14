@@ -51,7 +51,7 @@ jobs:
           app-name: ${{ env.FUNCTION_APP_NAME }}
           package: './${{ env.FUNCTION_APP_PACKAGE_PATH }}/output'
       - name: Set App Settings
-        uses: azure/CLI@v1.0.6
+        uses: azure/CLI@v1.0.8
         with:
           inlineScript: |
             az functionapp config appsettings set \
